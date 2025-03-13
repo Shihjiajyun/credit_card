@@ -147,22 +147,38 @@
             border-radius: 15px;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
-        .event-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(197, 165, 114, 0.2), transparent);
-            z-index: 1;
-        }
-
-        .event-card .card-body {
+        .event-cover {
+            height: 200px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .event-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover .event-cover img {
+            transform: scale(1.05);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
             z-index: 2;
+        }
+
+        .event-content {
+            position: relative;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(42, 67, 101, 0.95));
+            border-top: 1px solid rgba(197, 165, 114, 0.2);
         }
 
         /* 服務卡片樣式 */
@@ -729,28 +745,81 @@
     <!-- 活動報名 -->
     <section id="events" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5" data-aos="fade-up">精選活動</h2>
+            <h2 class="text-center mb-5" data-aos="fade-up">
+                <span class="text-gold">精選</span>活動
+            </h2>
             <div class="row g-4">
+                <!-- 活動卡片 1 -->
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card event-card h-100">
-                        <div class="card-body">
-                            <span class="badge bg-gold text-dark mb-3">限時專屬</span>
+                    <div class="event-card">
+                        <div class="event-cover">
+                            <img src="card.jpg" alt="信用卡攻略講座">
+                            <span class="badge bg-gold text-dark event-badge">限時專屬</span>
+                        </div>
+                        <div class="event-content">
                             <h4 class="card-title mb-3">信用卡攻略講座</h4>
                             <p class="card-text opacity-75">
                                 深入解析美國信用卡市場，掌握最新優惠策略
                             </p>
                             <div class="event-info mt-4">
-                                <p><i class="bi bi-calendar3"></i> 2024/03/15 週五</p>
-                                <p><i class="bi bi-clock"></i> 19:00-21:00</p>
-                                <p><i class="bi bi-geo-alt"></i> 線上直播</p>
+                                <p><i class="bi bi-calendar3 text-gold me-2"></i> 2024/03/15 週五</p>
+                                <p><i class="bi bi-clock text-gold me-2"></i> 19:00-21:00</p>
+                                <p><i class="bi bi-geo-alt text-gold me-2"></i> 線上直播</p>
                             </div>
                             <div class="mt-4">
-                                <button class="btn btn-light w-100">立即報名</button>
+                                <button class="btn btn-outline-light w-100 hover-gold">立即報名</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- 添加更多活動卡片 -->
+
+                <!-- 活動卡片 2 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="event-card">
+                        <div class="event-cover">
+                            <img src="card.jpg" alt="信用分數提升工作坊">
+                            <span class="badge bg-gold text-dark event-badge">熱門活動</span>
+                        </div>
+                        <div class="event-content">
+                            <h4 class="card-title mb-3">信用分數提升工作坊</h4>
+                            <p class="card-text opacity-75">
+                                專家分享信用分數提升秘訣，建立良好信用記錄
+                            </p>
+                            <div class="event-info mt-4">
+                                <p><i class="bi bi-calendar3 text-gold me-2"></i> 2024/03/22 週五</p>
+                                <p><i class="bi bi-clock text-gold me-2"></i> 14:00-16:00</p>
+                                <p><i class="bi bi-geo-alt text-gold me-2"></i> 線上直播</p>
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn btn-outline-light w-100 hover-gold">立即報名</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 活動卡片 3 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="event-card">
+                        <div class="event-cover">
+                            <img src="card.jpg" alt="新手入門指南講座">
+                            <span class="badge bg-gold text-dark event-badge">新手必聽</span>
+                        </div>
+                        <div class="event-content">
+                            <h4 class="card-title mb-3">新手入門指南講座</h4>
+                            <p class="card-text opacity-75">
+                                從零開始，帶您了解美國信用卡申請要點
+                            </p>
+                            <div class="event-info mt-4">
+                                <p><i class="bi bi-calendar3 text-gold me-2"></i> 2024/03/29 週五</p>
+                                <p><i class="bi bi-clock text-gold me-2"></i> 19:00-21:00</p>
+                                <p><i class="bi bi-geo-alt text-gold me-2"></i> 線上直播</p>
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn btn-outline-light w-100 hover-gold">立即報名</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
