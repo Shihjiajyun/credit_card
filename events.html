@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動報名 - 美國信用卡推薦網</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 自定義樣式 -->
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --gold-color: #c5a572;
+            --silver-color: #e2e8f0;
+        }
+        .bg-custom-navy {
+            background-color: var(--primary-color);
+        }
+        .text-gold {
+            color: var(--gold-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-custom-navy">
+        <div class="container">
+            <a class="navbar-brand" href="#">美國信用卡推薦網</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cards.html">信用卡推薦</a></li>
+                    <li class="nav-item"><a class="nav-link" href="consultation.html">諮詢服務</a></li>
+                    <li class="nav-item"><a class="nav-link" href="events.html">活動報名</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">服務介紹</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">聯絡我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 活動報名 -->
+    <div class="container py-5">
+        <h2 class="text-center mb-4">活動報名</h2>
+        <div class="row g-4">
+            <!-- 活動 1 -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="event1.jpg" class="card-img-top" alt="活動圖片">
+                    <div class="card-body">
+                        <h5 class="card-title">本月會員講座分享</h5>
+                        <p class="card-text">了解最新的信用卡優惠和使用技巧。</p>
+                        <a href="#" class="btn btn-primary">立即報名</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 可以依此類推添加更多活動 -->
+        </div>
+    </div>
+
+    <!-- 頁腳 -->
+    <footer class="bg-custom-navy text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>聯絡我們</h5>
+                    <p>Email: contact@uscards.com</p>
+                    <p>LINE: @uscards</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>快速連結</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">信用卡比較</a></li>
+                        <li><a href="#" class="text-white">最新優惠</a></li>
+                        <li><a href="#" class="text-white">常見問題</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>訂閱最新優惠</h5>
+                    <form>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="您的電子郵件">
+                            <button class="btn btn-outline-light" type="submit">訂閱</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
