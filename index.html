@@ -522,6 +522,68 @@
         .footer-links-bottom a:hover {
             color: var(--gold-color);
         }
+
+        .premium-service-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .premium-service-card:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 20px 50px rgba(197, 165, 114, 0.4);
+            background: linear-gradient(135deg, #1a1a1a, #1a365d) !important;
+            border: 3px solid var(--gold-color) !important;
+        }
+
+        .premium-service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 30px rgba(197, 165, 114, 0.6);
+        }
+
+        .premium-service-card .service-icon {
+            transition: all 0.3s ease;
+        }
+
+        .premium-service-card:hover .btn-gold {
+            background-color: #d4af37;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(197, 165, 114, 0.4);
+        }
+
+        .premium-service-card .btn-gold {
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        /* 添加閃光效果 */
+        .premium-service-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 6s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(30deg);
+            }
+            20%, 100% {
+                transform: translateX(100%) rotate(30deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -797,49 +859,89 @@
     <!-- 服務介紹 -->
     <section id="services" class="py-5 bg-light">
         <div class="container">
-            <h2 class="text-center mb-5" data-aos="fade-up">我們的服務</h2>
+            <h2 class="text-center mb-5" data-aos="fade-up">
+                <span class="text-gold">精品套裝</span>服務
+            </h2>
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h3 class="mb-3">美國信用卡辦理全方位解決方案</h3>
+                    <p class="lead">為您提供從諮詢到申辦的一站式服務，無需親自前往美國，遠端視訊即可完成</p>
+                </div>
+            </div>
             <div class="row g-4">
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="card service-card h-100">
                         <div class="card-body text-center">
                             <div class="service-icon">
-                                <i class="bi bi-person-check fs-1"></i>
+                                <i class="bi bi-credit-card-2-front fs-1"></i>
                             </div>
-                            <h5 class="card-title">1:1 信用卡推薦</h5>
-                            <p class="card-text">根據您的需求和條件，提供個性化的信用卡建議，確保最適合您的選擇。</p>
+                            <h5 class="card-title">信用卡建議與申辦</h5>
+                            <p class="card-text">與您深入討論，制定最適合您的持卡策略，並協助完成申請流程，提高核卡成功率。</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="card service-card h-100">
                         <div class="card-body text-center">
                             <div class="service-icon">
-                                <i class="bi bi-graph-up-arrow fs-1"></i>
+                                <i class="bi bi-file-earmark-text fs-1"></i>
                             </div>
-                            <h5 class="card-title">開卡獎勵追蹤</h5>
-                            <p class="card-text">協助追蹤開卡條件達成進度，確保您不會錯過任何獎勵。</p>
+                            <h5 class="card-title">ITIN申辦服務</h5>
+                            <p class="card-text">協助您申請美國個人納稅識別號碼(ITIN)，為信用卡申請奠定基礎，簡化繁瑣流程。</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card service-card h-100">
                         <div class="card-body text-center">
                             <div class="service-icon">
-                                <i class="bi bi-shield-check fs-1"></i>
+                                <i class="bi bi-geo-alt fs-1"></i>
                             </div>
-                            <h5 class="card-title">信用分數提升</h5>
-                            <p class="card-text">提供專業建議，幫助您建立良好的信用記錄，提升信用分數。</p>
+                            <h5 class="card-title">美國地址租借</h5>
+                            <p class="card-text">提供合法可用的美國實體地址，用於信用卡申請和接收卡片，確保您的郵件安全送達。</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="col-md-4 mt-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="card service-card h-100">
                         <div class="card-body text-center">
                             <div class="service-icon">
-                                <i class="bi bi-book fs-1"></i>
+                                <i class="bi bi-telephone fs-1"></i>
                             </div>
-                            <h5 class="card-title">新手教學指南</h5>
-                            <p class="card-text">為初次接觸美國信用卡的用戶提供完整的基礎知識教學。</p>
+                            <h5 class="card-title">美國電話申辦</h5>
+                            <p class="card-text">協助您獲取美國電話號碼，用於信用卡申請驗證和日常使用，支持短信和來電轉接。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon">
+                                <i class="bi bi-bank fs-1"></i>
+                            </div>
+                            <h5 class="card-title">美國銀行帳戶申辦</h5>
+                            <p class="card-text">遠端視訊即可完成美國銀行帳戶開戶，為信用卡還款和資金管理提供便利。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-5" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card service-card h-100 bg-gradient-dark text-white premium-service-card" style="border: 3px solid var(--gold-color);">
+                        <div class="card-body p-5">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 text-center">
+                                    <div class="service-icon" style="background: var(--gold-color); color: var(--primary-color); width: 120px; height: 120px; margin-bottom: 15px;">
+                                        <i class="bi bi-stars" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <div class="badge bg-gold text-dark p-2 fs-6">熱門選擇</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h4 class="card-title text-gold" style="font-size: 2rem; margin-bottom: 1rem;">一站式套裝服務</h4>
+                                    <p class="card-text" style="font-size: 1.2rem;">整合以上所有服務，提供無縫銜接的全方位解決方案，讓您輕鬆擁有美國信用卡。包含信用卡建議、ITIN申辦、美國地址租借、美國電話申辦及銀行帳戶開設，遠端視訊即可完成。</p>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <a href="#consultation" class="btn btn-gold btn-lg mt-3 w-100 p-3" style="font-size: 1.2rem;">立即諮詢</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
