@@ -141,44 +141,102 @@
 
         /* 活動卡片樣式 */
         .event-card {
-            background: linear-gradient(135deg, #1a365d, #2a4365);
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(42, 67, 101, 0.95));
             border: none;
-            color: white;
             border-radius: 15px;
             overflow: hidden;
-            position: relative;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .event-cover {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(197, 165, 114, 0.3);
         }
 
-        .event-cover img {
+        .swiper {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .swiper-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
         }
 
-        .event-card:hover .event-cover img {
-            transform: scale(1.05);
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--gold-color);
+            background: rgba(0, 0, 0, 0.3);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
         }
 
-        .event-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 2;
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 1.2rem;
+        }
+
+        .swiper-pagination-bullet {
+            background: var(--gold-color);
         }
 
         .event-content {
+            padding: 2rem;
+            color: white;
+        }
+
+        .event-info {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .event-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .event-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .hover-gold {
             position: relative;
-            padding: 25px;
-            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(42, 67, 101, 0.95));
-            border-top: 1px solid rgba(197, 165, 114, 0.2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .hover-gold:hover {
+            background: var(--gold-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        #events {
+            position: relative;
+            padding: 100px 0;
+        }
+
+        #events::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('pattern.png') repeat;
+            opacity: 0.05;
+            pointer-events: none;
         }
 
         /* 服務卡片樣式 */
@@ -361,37 +419,6 @@
             box-shadow: 0 0 10px rgba(197, 165, 114, 0.2);
         }
 
-        .hover-gold {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid var(--gold-color);
-        }
-
-        .hover-gold:hover {
-            background: var(--gold-color);
-            color: var(--primary-color);
-            border-color: var(--gold-color);
-        }
-
-        /* 添加信用卡光澤效果 */
-        .credit-card-design::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,0.1) 0%,
-                rgba(255,255,255,0.05) 40%,
-                transparent 60%
-            );
-            border-radius: 15px;
-        }
-
-        /* Footer 樣式 */
         .footer-section {
             background: linear-gradient(135deg, var(--primary-color), #0a192f);
             color: white;
@@ -641,7 +668,204 @@
             justify-content: center;
             margin: 0 auto 15px;
         }
+
+        /* 時間軸樣式 */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent,
+                var(--gold-color) 10%,
+                var(--gold-color) 90%,
+                transparent
+            );
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            border: 2px solid var(--gold-color);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            color: var(--gold-color);
+            width: 100px;
+            z-index: 2;
+        }
+
+        .timeline-date .date {
+            font-size: 2rem;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-date .month {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .timeline-date .year {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(42, 67, 101, 0.95));
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(197, 165, 114, 0.2);
+        }
+
+        .event-gallery {
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+
+        .event-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .event-header h3 {
+            color: var(--gold-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .location {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        .event-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold-color);
+        }
+
+        .stat-item span {
+            color: white;
+        }
+
+        .event-description {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-highlights {
+            background: rgba(197, 165, 114, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--gold-color);
+        }
+
+        .event-highlights h4 {
+            color: var(--gold-color);
+            margin-bottom: 1rem;
+        }
+
+        .event-highlights ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .event-highlights li {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .event-highlights li::before {
+            content: '✦';
+            color: var(--gold-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Swiper 客製化樣式 */
+        .gallerySwiper {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .swiper-pagination-bullet {
+            background: var(--gold-color) !important;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+
+            .timeline-date {
+                left: 2rem;
+                transform: none;
+            }
+
+            .timeline-content {
+                margin-left: 4rem;
+            }
+
+            .event-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
+    <!-- 在 </head> 標籤前加入 Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 </head>
 <body>
     <!-- 導航欄 -->
@@ -945,80 +1169,245 @@
         </div>
     </section>
 
-    <!-- 活動報名 -->
-    <section id="events" class="py-5">
+    <!-- 活動紀錄 -->
+    <section id="events" class="py-5 bg-gradient-dark">
         <div class="container">
-            <h2 class="text-center mb-5" data-aos="fade-up">
-                <span class="text-gold">精選</span>活動
+            <h2 class="text-center mb-5 text-white" data-aos="fade-up">
+                <span class="text-gold">活動</span>紀錄
             </h2>
-            <div class="row g-4">
-                <!-- 活動卡片 1 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="event-card">
-                        <div class="event-cover">
-                            <img src="card.jpg" alt="信用卡攻略講座">
-                            <span class="badge bg-gold text-dark event-badge">限時專屬</span>
-                        </div>
-                        <div class="event-content">
-                            <h4 class="card-title mb-3">信用卡攻略講座</h4>
-                            <p class="card-text opacity-75">
-                                深入解析美國信用卡市場，掌握最新優惠策略
-                            </p>
-                            <div class="event-info mt-4">
-                                <p><i class="bi bi-calendar3 text-gold me-2"></i> 2024/03/15 週五</p>
-                                <p><i class="bi bi-clock text-gold me-2"></i> 19:00-21:00</p>
-                                <p><i class="bi bi-geo-alt text-gold me-2"></i> 線上直播</p>
+            
+            <!-- 活動時間軸 -->
+            <div class="timeline">
+                <!-- 台中萬楓酒店活動 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-date">
+                        <span class="date">19</span>
+                        <span class="month">APR</span>
+                        <span class="year">2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="event-gallery">
+                            <div class="swiper gallerySwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0419.JPG" alt="台中萬楓酒店活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>開場致詞</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0419_1.JPG" alt="台中萬楓酒店活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>專家分享環節</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0419_2.JPG" alt="台中萬楓酒店活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>交流討論</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0419_3.JPG" alt="台中萬楓酒店活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>交流討論</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
                             </div>
-                            <div class="mt-4">
-                                <button class="btn btn-outline-light w-100 hover-gold">立即報名</button>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-header">
+                                <h3>信用卡達人講座 - 台中萬楓酒店</h3>
+                                <span class="location"><i class="bi bi-geo-alt-fill"></i> 台中市萬楓酒店</span>
+                            </div>
+                            <div class="event-stats">
+                                <div class="stat-item">
+                                    <i class="bi bi-people-fill"></i>
+                                    <span>120+ 參與者</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="bi bi-chat-fill"></i>
+                                    <span>50+ 提問互動</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>4.8/5 滿意度</span>
+                                </div>
+                            </div>
+                            <p class="event-description">
+                                本次活動邀請到多位信用卡領域專家，深入探討美國信用卡的進階使用技巧。現場氣氛熱烈，參與者踴躍提問，專家們也分享了許多實用的個案分析。
+                            </p>
+                            <div class="event-highlights">
+                                <h4>活動亮點</h4>
+                                <ul>
+                                    <li>信用卡組合最佳化策略分享</li>
+                                    <li>高端酒店住宿權益解析</li>
+                                    <li>機場貴賓室體驗分享</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 活動卡片 2 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="event-card">
-                        <div class="event-cover">
-                            <img src="card.jpg" alt="信用分數提升工作坊">
-                            <span class="badge bg-gold text-dark event-badge">熱門活動</span>
-                        </div>
-                        <div class="event-content">
-                            <h4 class="card-title mb-3">信用分數提升工作坊</h4>
-                            <p class="card-text opacity-75">
-                                專家分享信用分數提升秘訣，建立良好信用記錄
-                            </p>
-                            <div class="event-info mt-4">
-                                <p><i class="bi bi-calendar3 text-gold me-2"></i> 2024/03/22 週五</p>
-                                <p><i class="bi bi-clock text-gold me-2"></i> 14:00-16:00</p>
-                                <p><i class="bi bi-geo-alt text-gold me-2"></i> 線上直播</p>
+                <!-- 台北駭客餐酒館活動 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-date">
+                        <span class="date">23</span>
+                        <span class="month">MAR</span>
+                        <span class="year">2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="event-gallery">
+                            <div class="swiper gallerySwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0323.JPG" alt="台北駭客餐酒館活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>科技主題布置</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0323_1.JPG" alt="台北駭客餐酒館活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>互動遊戲環節</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0323_2.JPG" alt="台北駭客餐酒館活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>餐飲交流時間</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0323_3.JPG" alt="台北駭客餐酒館活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>餐飲交流時間</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
                             </div>
-                            <div class="mt-4">
-                                <button class="btn btn-outline-light w-100 hover-gold">立即報名</button>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-header">
+                                <h3>信用卡攻略講座 - 台北駭客餐酒館</h3>
+                                <span class="location"><i class="bi bi-geo-alt-fill"></i> 台北市信義區駭客餐酒館</span>
+                            </div>
+                            <div class="event-stats">
+                                <div class="stat-item">
+                                    <i class="bi bi-people-fill"></i>
+                                    <span>80+ 參與者</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="bi bi-chat-fill"></i>
+                                    <span>30+ 提問互動</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>4.9/5 滿意度</span>
+                                </div>
+                            </div>
+                            <p class="event-description">
+                                在充滿科技感的駭客餐酒館舉辦的這場講座，以輕鬆互動的方式帶領參與者了解信用卡優惠策略。現場還設計了多個互動遊戲，讓參與者在遊戲中學習。
+                            </p>
+                            <div class="event-highlights">
+                                <h4>活動亮點</h4>
+                                <ul>
+                                    <li>信用卡積分攻略遊戲</li>
+                                    <li>餐飲優惠最大化分享</li>
+                                    <li>科技感主題布置</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 活動卡片 3 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="event-card">
-                        <div class="event-cover">
-                            <img src="card.jpg" alt="新手入門指南講座">
-                            <span class="badge bg-gold text-dark event-badge">新手必聽</span>
-                        </div>
-                        <div class="event-content">
-                            <h4 class="card-title mb-3">新手入門指南講座</h4>
-                            <p class="card-text opacity-75">
-                                從零開始，帶您了解美國信用卡申請要點
-                            </p>
-                            <div class="event-info mt-4">
-                                <p><i class="bi bi-calendar3 text-gold me-2"></i> 2024/03/29 週五</p>
-                                <p><i class="bi bi-clock text-gold me-2"></i> 19:00-21:00</p>
-                                <p><i class="bi bi-geo-alt text-gold me-2"></i> 線上直播</p>
+                <!-- 高雄萬豪酒店活動 -->
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-date">
+                        <span class="date">15</span>
+                        <span class="month">MAR</span>
+                        <span class="year">2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="event-gallery">
+                            <div class="swiper gallerySwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0315.JPG" alt="高雄萬豪酒店活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>精緻茶點</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0315_1.jpg" alt="高雄萬豪酒店活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>專家演講</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="gallery-item">
+                                            <img src="./img/0315_2.JPG" alt="高雄萬豪酒店活動照片">
+                                            <div class="gallery-overlay">
+                                                <span>貴賓室導覽</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
                             </div>
-                            <div class="mt-4">
-                                <button class="btn btn-outline-light w-100 hover-gold">立即報名</button>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-header">
+                                <h3>信用卡優惠饗宴 - 高雄萬豪酒店</h3>
+                                <span class="location"><i class="bi bi-geo-alt-fill"></i> 高雄市萬豪酒店</span>
+                            </div>
+                            <div class="event-stats">
+                                <div class="stat-item">
+                                    <i class="bi bi-people-fill"></i>
+                                    <span>100+ 參與者</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="bi bi-chat-fill"></i>
+                                    <span>40+ 提問互動</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>4.7/5 滿意度</span>
+                                </div>
+                            </div>
+                            <p class="event-description">
+                                在高雄萬豪酒店舉辦的這場活動，除了分享信用卡知識外，還特別安排了酒店設施導覽，讓參與者實地體驗高端信用卡的住宿權益。
+                            </p>
+                            <div class="event-highlights">
+                                <h4>活動亮點</h4>
+                                <ul>
+                                    <li>萬豪會員制度解析</li>
+                                    <li>貴賓室實地參觀</li>
+                                    <li>精緻下午茶體驗</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -1272,7 +1661,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- 初始化 AOS -->
+    <!-- 在 Bootstrap JS 之前加入 Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <!-- 在 AOS.init() 之前加入 Swiper 初始化程式碼 -->
     <script>
         AOS.init({
             duration: 1000,
@@ -1287,6 +1678,29 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // 初始化所有活動輪播
+        const swiperOptions = {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            effect: "fade",
+            fadeEffect: {
+                crossFade: true
+            }
+        };
+
+        document.querySelectorAll('.gallerySwiper').forEach(slider => {
+            new Swiper(slider, swiperOptions);
         });
     </script>
 </body>
