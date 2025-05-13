@@ -1,0 +1,964 @@
+body{
+    overflow-x: hidden;
+}
+:root {
+    --primary-color: #1a365d;
+    --gold-color: #c5a572;
+    --silver-color: #e2e8f0;
+    --navbar-height: 0px;
+}
+.bg-custom-navy {
+    background-color: var(--primary-color);
+}
+.text-gold {
+    color: var(--gold-color);
+}
+.card {
+    transition: transform 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.section-divider {
+    height: 100px;
+    background: linear-gradient(to right, var(--primary-color), var(--gold-color));
+    margin: 50px 0;
+    opacity: 0.1;
+}
+.hero-section {
+    min-height: 50vh;
+    margin-top: var(--navbar-height);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-color), #2a4365);
+    display: flex;
+    align-items: center;
+}
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('credit-card-pattern.png') repeat;
+    opacity: 0.1;
+}
+.card-flip {
+    perspective: 1000px;
+    height: 400px;
+}
+
+.card-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.card-flip:hover .card-flip-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-front {
+    background: linear-gradient(135deg, var(--primary-color), var(--gold-color));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #1a365d, #2a4365);
+    color: white;
+    transform: rotateY(180deg);
+    padding: 25px;
+    border: 1px solid rgba(197, 165, 114, 0.2);
+}
+
+.card-back .card-title {
+    color: var(--gold-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.card-back .card-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1em;
+    margin-bottom: 1.5rem;
+}
+
+.card-back ul li {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.card-back ul li::before {
+    content: '✓';
+    color: var(--gold-color);
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.card-back .btn-primary {
+    background: var(--gold-color);
+    border: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.card-back .btn-primary:hover {
+    background: #d4af37;
+    color: var(--primary-color);
+}
+
+/* 活動卡片樣式 */
+.event-card {
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(42, 67, 101, 0.95));
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(197, 165, 114, 0.3);
+}
+
+.swiper {
+    width: 100%;
+    height: 300px;
+    border-radius: 15px 15px 0 0;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--gold-color);
+    background: rgba(0, 0, 0, 0.3);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 1.2rem;
+}
+
+.swiper-pagination-bullet {
+    background: var(--gold-color);
+}
+
+.event-content {
+    padding: 2rem;
+    color: white;
+}
+
+.event-info {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+}
+
+.event-info p {
+    margin-bottom: 0.5rem;
+}
+
+.event-info p:last-child {
+    margin-bottom: 0;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.hover-gold {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.hover-gold:hover {
+    background: var(--gold-color);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+#events {
+    position: relative;
+    padding: 100px 0;
+}
+
+#events::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('pattern.png') repeat;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+/* 服務卡片樣式 */
+.service-card {
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-color);
+    color: var(--gold-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.credit-card-design {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #000000, #1a1a1a);
+    border-radius: 15px;
+    padding: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chip-design {
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #ceb352, #b39138);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chip-design::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, 0.1) 50%),
+        linear-gradient(0deg, transparent 50%, rgba(255, 255, 255, 0.1) 50%);
+    background-size: 8px 8px;
+    opacity: 0.5;
+}
+
+.chip-design::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 15px;
+    background: linear-gradient(90deg, 
+        transparent 25%, 
+        rgba(255, 255, 255, 0.2) 25%, 
+        rgba(255, 255, 255, 0.2) 30%, 
+        transparent 30%, 
+        transparent 35%,
+        rgba(255, 255, 255, 0.2) 35%,
+        rgba(255, 255, 255, 0.2) 40%,
+        transparent 40%,
+        transparent 45%,
+        rgba(255, 255, 255, 0.2) 45%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 50%
+    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.chip-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.2) 50%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.2) 50%, transparent 52%);
+    background-size: 10px 10px;
+}
+
+.card-number {
+    font-family: 'Courier New', monospace;
+    font-size: 1.4em;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.card-holder {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    font-family: 'Arial', sans-serif;
+}
+
+.card-logo {
+    position: absolute;
+    bottom: 20px;  /* 改為底部定位 */
+    right: 20px;   /* 保持右側定位 */
+    width: 40px;   /* 稍微縮小尺寸 */
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    backdrop-filter: blur(5px);
+}
+
+/* 統一網站配色 */
+.section-gradient {
+    background: linear-gradient(135deg, var(--primary-color), #2a4365);
+    color: white;
+}
+
+.bg-gradient-dark {
+    background: linear-gradient(135deg, #1a1a1a, var(--primary-color));
+}
+
+/* 聯絡我們區塊樣式 */
+.contact-section {
+    background: linear-gradient(135deg, var(--primary-color), #2a4365);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('pattern.png') repeat;
+    opacity: 0.05;
+}
+
+.contact-card {
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(42, 67, 101, 0.95));
+    border: 1px solid rgba(197, 165, 114, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(197, 165, 114, 0.2);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold-color);
+    box-shadow: 0 0 10px rgba(197, 165, 114, 0.2);
+}
+
+.footer-section {
+    background: linear-gradient(135deg, var(--primary-color), #0a192f);
+    color: white;
+    position: relative;
+}
+
+.footer-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-color), transparent);
+}
+
+.text-light-gray {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: var(--gold-color);
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--gold-color);
+    padding-left: 5px;
+}
+
+.footer-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-contact i {
+    color: var(--gold-color);
+    margin-right: 10px;
+}
+
+.footer-subscribe .form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.footer-subscribe .form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--gold-color);
+    box-shadow: none;
+}
+
+.btn-gold {
+    background: var(--gold-color);
+    color: var(--primary-color);
+    border: none;
+}
+
+.btn-gold:hover {
+    background: #d4af37;
+    color: var(--primary-color);
+}
+
+.footer-divider {
+    margin: 40px 0;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.copyright {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-links-bottom {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.footer-links-bottom a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links-bottom a:hover {
+    color: var(--gold-color);
+}
+
+.premium-service-card {
+    transition: all 0.3s ease;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.premium-service-card:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 20px 50px rgba(197, 165, 114, 0.4);
+    background: linear-gradient(135deg, #1a1a1a, #1a365d) !important;
+    border: 3px solid var(--gold-color) !important;
+}
+
+.premium-service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 30px rgba(197, 165, 114, 0.6);
+}
+
+.premium-service-card .service-icon {
+    transition: all 0.3s ease;
+}
+
+.premium-service-card:hover .btn-gold {
+    background-color: #d4af37;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(197, 165, 114, 0.4);
+}
+
+.premium-service-card .btn-gold {
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+/* 添加閃光效果 */
+.premium-service-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shine 6s infinite;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) rotate(30deg);
+    }
+    20%, 100% {
+        transform: translateX(100%) rotate(30deg);
+    }
+}
+
+/* 添加流暢過渡樣式 */
+.section-transition {
+    margin: -50px 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(248, 249, 250, 0.5), transparent);
+    z-index: 1;
+    position: relative;
+}
+
+.card-section {
+    padding-top: 70px;
+    padding-bottom: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(197, 165, 114, 0.05), transparent 70%),
+                radial-gradient(circle at bottom left, rgba(26, 54, 93, 0.05), transparent 70%);
+    pointer-events: none;
+}
+
+/* 使卡片群組視覺上更加連貫 */
+.card-group-heading {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.card-group-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--gold-color);
+}
+
+/* 應用於所有卡片的圖標容器，確保完美圓形 */
+.card-icon-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+/* 時間軸樣式 */
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+        transparent,
+        var(--gold-color) 10%,
+        var(--gold-color) 90%,
+        transparent
+    );
+}
+
+.timeline-item {
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.timeline-date {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    border: 2px solid var(--gold-color);
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    color: var(--gold-color);
+    width: 100px;
+    z-index: 2;
+}
+
+.timeline-date .date {
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+}
+
+.timeline-date .month {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.timeline-date .year {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.timeline-content {
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.95), rgba(42, 67, 101, 0.95));
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(197, 165, 114, 0.2);
+}
+
+.event-gallery {
+    margin-bottom: 2rem;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+}
+
+.event-header {
+    margin-bottom: 1.5rem;
+}
+
+.event-header h3 {
+    color: var(--gold-color);
+    margin-bottom: 0.5rem;
+}
+
+.location {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+}
+
+.event-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gold-color);
+}
+
+.stat-item span {
+    color: white;
+}
+
+.event-description {
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.event-highlights {
+    background: rgba(197, 165, 114, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--gold-color);
+}
+
+.event-highlights h4 {
+    color: var(--gold-color);
+    margin-bottom: 1rem;
+}
+
+.event-highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.event-highlights li {
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.event-highlights li::before {
+    content: '✦';
+    color: var(--gold-color);
+    position: absolute;
+    left: 0;
+}
+
+/* Swiper 客製化樣式 */
+.gallerySwiper {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.swiper-pagination-bullet {
+    background: var(--gold-color) !important;
+}
+
+/* 導覽列樣式 */
+.navbar {
+    transition: all 0.3s ease;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.hero-bottom-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* RWD 樣式 */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background: var(--primary-color);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .hero-section {
+        padding: 2rem 0;
+    }
+
+    .hero-content {
+        gap: 2rem;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    .lead {
+        font-size: 1.1rem;
+    }
+
+    .service-card {
+        margin-bottom: 1rem;
+    }
+
+    .timeline::before {
+        left: 1rem;
+    }
+
+    .timeline-date {
+        left: 1rem;
+        transform: none;
+    }
+
+    .timeline-content {
+        margin-left: 3rem;
+        margin-right: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+
+    .contact-card {
+        margin-bottom: 1rem;
+    }
+
+    .footer-links-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .event-gallery {
+        height: 200px;
+    }
+
+    .event-details {
+        padding: 1rem;
+    }
+}
+
+/* 聯絡我們表單樣式 */
+.contact-form .form-control,
+.contact-form .form-select {
+    color: white;
+}
+
+.contact-form .form-control::placeholder,
+.contact-form .form-select::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-form .form-select option {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* 修改 footer 訂閱區域的樣式 */
+.footer-subscribe .form-control {
+    color: white;
+}
+
+.footer-subscribe .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-subscribe .btn i {
+    color: var(--primary-color);
+}
+
+/* 自動計算導覽列高度 */
+:root {
+    --navbar-height: 0px;
+}
+
