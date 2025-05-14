@@ -35,7 +35,7 @@ body{
     opacity: 0.1;
 }
 .hero-section {
-    min-height: 50vh;
+    height: 48vh;
     margin-top: var(--navbar-height);
     padding: 0;
     position: relative;
@@ -855,9 +855,8 @@ body{
 }
 
 .hero-bottom-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    bottom: 20px;
+    left: 0;
 }
 
 /* RWD 樣式 */
