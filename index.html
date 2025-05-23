@@ -792,37 +792,36 @@
             spaceBetween: 30,
             loop: true,
             autoplay: {
-                delay: 3000,
+                delay: 5000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true
             },
+            speed: 800,
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
             },
-            effect: "fade",
-            fadeEffect: {
-                crossFade: true
-            },
-            // 添加性能優化選項
+            effect: "slide",
             preloadImages: false,
-            lazy: true,
+            lazy: {
+                loadPrevNext: true,
+                loadPrevNextAmount: 2
+            },
             watchSlidesProgress: true,
             watchSlidesVisibility: true,
+            touchRatio: 1,
+            touchAngle: 45,
+            grabCursor: true,
+            observer: true,
+            observeParents: true,
+            releaseFormElements: true,
+            mousewheel: false,
+            preventInteractionOnTransition: true
         };
 
         document.querySelectorAll('.gallerySwiper').forEach(slider => {
             new Swiper(slider, swiperOptions);
         });
-        document.addEventListener('DOMContentLoaded', function() {
-    const navbar = document.querySelector('.navbar');
-    const updateNavbarHeight = () => {
-        const height = navbar.offsetHeight;
-        document.documentElement.style.setProperty('--navbar-height', height + 'px');
-    };
-    
-    updateNavbarHeight();
-    window.addEventListener('resize', updateNavbarHeight);
-});
     </script>
 </body>
 
