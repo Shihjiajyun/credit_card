@@ -40,15 +40,13 @@
 
     <!-- Hero 區域 -->
     <section id="home" class="hero-section text-white">
-        <div class="container h-100 position-relative">
-            <div class="row h-100">
-                <div class="col-md-8 mx-auto d-flex flex-column justify-content-center">
-                    <h1 class="display-4 fw-bold mb-4 text-center" data-aos="fade-up">TrustMiles 信任里程</h1>
-                    <div class="hero-bottom-content position-absolute w-100 start-0">
-                        <p class="lead mb-4 text-center" data-aos="fade-up" data-aos-delay="100">我們不只是幫你把卡辦好，更把每一段服務的里程，都當成自己的旅程</p>
-                        <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-                            <a href="#consultation" class="btn btn-light btn-lg">開啟信任旅程</a>
-                        </div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 col-md-10 col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4" data-aos="fade-up">TrustMiles 信任里程</h1>
+                    <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">我們不只是幫你把卡辦好，更把每一段服務的里程，都當成自己的旅程</p>
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <a href="#consultation" class="btn btn-light btn-lg">開啟信任旅程</a>
                     </div>
                 </div>
             </div>
@@ -787,6 +785,46 @@
         document.querySelectorAll('.gallerySwiper').forEach(slider => {
             new Swiper(slider, swiperOptions);
         });
+
+        // 卡片標題高度對齊功能
+        function alignCardHeaders() {
+            // 處理所有卡片組
+            const cardGroups = document.querySelectorAll('.row.g-4.justify-content-center');
+            
+            cardGroups.forEach(group => {
+                const cardHeaders = group.querySelectorAll('.card-header');
+                
+                if (cardHeaders.length > 0) {
+                    // 重置高度
+                    cardHeaders.forEach(header => {
+                        header.style.minHeight = 'auto';
+                    });
+                    
+                    // 計算最大高度
+                    let maxHeight = 0;
+                    cardHeaders.forEach(header => {
+                        const height = header.offsetHeight;
+                        if (height > maxHeight) {
+                            maxHeight = height;
+                        }
+                    });
+                    
+                    // 設置統一最小高度
+                    cardHeaders.forEach(header => {
+                        header.style.minHeight = maxHeight + 'px';
+                    });
+                }
+            });
+        }
+
+        // 頁面載入完成後執行
+        document.addEventListener('DOMContentLoaded', alignCardHeaders);
+        
+        // 視窗大小改變時重新對齊
+        window.addEventListener('resize', alignCardHeaders);
+        
+        // AOS 動畫完成後也執行一次對齊
+        setTimeout(alignCardHeaders, 1500);
     </script>
 </body>
 
