@@ -58,10 +58,9 @@
             text-align: center;
             transition: transform 0.8s;
             transform-style: preserve-3d;
-            cursor: pointer;
         }
         
-        .flip-card:hover .flip-card-inner {
+        .flip-card.flipped .flip-card-inner {
             transform: rotateY(180deg);
         }
         
@@ -107,6 +106,33 @@
             font-size: 12px;
             color: rgba(255,255,255,0.7);
             z-index: 10;
+        }
+        
+        .flip-toggle-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--gold-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            color: var(--gold-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .flip-toggle-btn:hover {
+            background: var(--gold-color);
+            color: var(--primary-color);
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -281,6 +307,7 @@
                     <!-- Marriott Bonvoy Brilliant Card -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="flip-card">
+                            <div class="flip-toggle-btn">+</div>
                             <div class="flip-card-inner">
                                 <!-- 卡片正面 -->
                                 <div class="flip-card-front">
@@ -340,7 +367,7 @@
                                         </div>
                                     </div>
                                     <div class="flip-hint">
-                                        <i class="bi bi-arrow-repeat"></i> 滑鼠懸停查看詳情
+                                        <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
                                 
@@ -397,6 +424,7 @@
                     <!-- Marriott Bonvoy Business Card -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="flip-card">
+                            <div class="flip-toggle-btn">+</div>
                             <div class="flip-card-inner">
                                 <!-- 卡片正面 -->
                                 <div class="flip-card-front">
@@ -455,7 +483,7 @@
                                         </div>
                                     </div>
                                     <div class="flip-hint">
-                                        <i class="bi bi-arrow-repeat"></i> 滑鼠懸停查看詳情
+                                        <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
                                 
@@ -512,6 +540,7 @@
                     <!-- Hilton Honors Card -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                         <div class="flip-card">
+                            <div class="flip-toggle-btn">+</div>
                             <div class="flip-card-inner">
                                 <!-- 卡片正面 -->
                                 <div class="flip-card-front">
@@ -531,13 +560,14 @@
                                         <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">🎁 開卡禮</div>
-                                                <div class="text-white">
-                                                    消費 <span class="text-gold fw-bold">$2,000</span> 獲得
+                                                <div class="text-white small">
+                                                    前6個月消費 <span class="text-gold fw-bold">$2,000</span> 獲得
                                                 </div>
                                                 <div class="mt-1">
-                                                    <span style="text-decoration: line-through;" class="text-light small">80,000</span> 
                                                     <span class="text-gold fw-bold fs-4">100,000</span> 
-                                                    <span class="text-white">Hilton積分</span>
+                                                    <span class="text-white">Hilton積分</span><br>
+                                                    <span class="text-gold fw-bold">+ $100</span> 
+                                                    <span class="text-white small">帳單抵扣</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -548,7 +578,7 @@
                                                 <div class="col-6">
                                                     <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">年費</div>
-                                                        <div class="text-white fw-bold">$150</div>
+                                                        <div class="text-white fw-bold">$0</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
@@ -560,18 +590,18 @@
                                             </div>
                                             
                                             <div class="text-center">
-                                                <div class="text-gold fw-bold mb-2">🏨 酒店權益</div>
+                                                <div class="text-gold fw-bold mb-2">🏨 核心權益</div>
                                                 <div class="small text-white lh-sm">
                                                     <div>• 希爾頓酒店 7X 積分</div>
-                                                    <div>• 餐廳消費 3X 積分</div>
+                                                    <div>• 美國餐廳/超市/加油站 5X</div>
                                                     <div>• 自動銀卡菁英會籍</div>
-                                                    <div>• 每年1晚免費住宿</div>
+                                                    <div>• 無境外交易手續費</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flip-hint">
-                                        <i class="bi bi-arrow-repeat"></i> 滑鼠懸停查看詳情
+                                        <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
                                 
@@ -586,7 +616,7 @@
                                                 <ul class="mb-0 small">
                                                     <li>希爾頓酒店住宿：7X 積分</li>
                                                     <li>自動希爾頓銀卡菁英會籍</li>
-                                                    <li>每年1晚免費住宿券</li>
+                                                    <li>年消費$20k升級金卡會籍</li>
                                                     <li>免費WiFi與房型升等</li>
                                                 </ul>
                                             </div>
@@ -596,10 +626,10 @@
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>消費回饋</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>美國餐廳：3X 積分</li>
-                                                    <li>美國超市：3X 積分</li>
-                                                    <li>美國加油站：3X 積分</li>
-                                                    <li>其他消費：1X 積分</li>
+                                                    <li>美國餐廳：5X 積分</li>
+                                                    <li>美國超市：5X 積分</li>
+                                                    <li>美國加油站：5X 積分</li>
+                                                    <li>其他消費：3X 積分</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -639,6 +669,7 @@
                     <!-- Chase IHG Premier Card -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="flip-card">
+                            <div class="flip-toggle-btn">+</div>
                             <div class="flip-card-inner">
                                 <!-- 卡片正面 -->
                                 <div class="flip-card-front">
@@ -658,12 +689,12 @@
                                         <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">🎁 開卡禮</div>
-                                                <div class="text-white">
-                                                    消費 <span class="text-gold fw-bold">$5,000</span> 獲得
+                                                <div class="text-white small">
+                                                    前3個月消費 <span class="text-gold fw-bold">$5,000</span> 獲得
                                                 </div>
                                                 <div class="mt-1">
                                                     <span class="text-gold fw-bold fs-4">5張免費住宿券</span>
-                                                    <div class="text-light small">(up to 60k點數)</div>
+                                                    <div class="text-light small">(每張up to 60k點數，約價值$900)</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -680,7 +711,7 @@
                                                 <div class="col-6">
                                                     <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
-                                                        <div class="text-white fw-bold">26X IHG</div>
+                                                        <div class="text-white fw-bold">10X IHG</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -688,16 +719,16 @@
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">🏨 IHG權益</div>
                                                 <div class="small text-white lh-sm">
-                                                    <div>• IHG酒店 26X 積分</div>
-                                                    <div>• 每年1晚免費住宿</div>
+                                                    <div>• IHG酒店 10X 積分</div>
+                                                    <div>• 旅行/餐飲/加油 5X 積分</div>
                                                     <div>• 自動白金菁英會籍</div>
-                                                    <div>• Global Entry報銷</div>
+                                                    <div>• 年度$50 UA TravelBank</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flip-hint">
-                                        <i class="bi bi-arrow-repeat"></i> 滑鼠懸停查看詳情
+                                        <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
                                 
@@ -710,10 +741,10 @@
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-building me-2"></i>酒店權益</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>IHG酒店住宿：26X 積分</li>
+                                                    <li>IHG酒店住宿：10X 積分</li>
                                                     <li>自動IHG白金菁英會籍</li>
-                                                    <li>每年1晚免費住宿券(up to 40k)</li>
-                                                    <li>房型升等與延遲退房</li>
+                                                    <li>年度免費住宿券(up to 40k)</li>
+                                                    <li>消費$40k升級鑽石會籍</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -722,10 +753,10 @@
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>消費回饋</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>加油站：3X 積分</li>
-                                                    <li>餐廳消費：2X 積分</li>
-                                                    <li>超市購物：2X 積分</li>
-                                                    <li>其他消費：1X 積分</li>
+                                                    <li>旅行消費：5X 積分</li>
+                                                    <li>餐廳消費：5X 積分</li>
+                                                    <li>加油站：5X 積分</li>
+                                                    <li>其他消費：3X 積分</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -734,10 +765,10 @@
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-star me-2"></i>特殊福利</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>年消費$20k贈送10k積分</li>
-                                                    <li>無境外交易手續費</li>
-                                                    <li>Global Entry費用報銷</li>
-                                                    <li>24/7旅行協助服務</li>
+                                                    <li>年度$50 UA TravelBank</li>
+                                                    <li>年消費$20k送10k積分+$100積分</li>
+                                                    <li>$800手機保險保障</li>
+                                                    <li>Global Entry/TSA PreCheck $100</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -754,6 +785,7 @@
                     <!-- Chase Sapphire Preferred Card -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="flip-card">
+                            <div class="flip-toggle-btn">+</div>
                             <div class="flip-card-inner">
                                 <!-- 卡片正面 -->
                                 <div class="flip-card-front">
@@ -773,13 +805,13 @@
                                         <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">🎁 開卡禮</div>
-                                                <div class="text-white">
-                                                    消費 <span class="text-gold fw-bold">$4,000</span> 獲得
+                                                <div class="text-white small">
+                                                    前3個月消費 <span class="text-gold fw-bold">$4,000</span> 獲得
                                                 </div>
                                                 <div class="mt-1">
-                                                    <span style="text-decoration: line-through;" class="text-light small">60,000</span> 
-                                                    <span class="text-gold fw-bold fs-4">100,000</span> 
-                                                    <span class="text-white">UR點數</span>
+                                                    <span class="text-gold fw-bold fs-4">60,000</span> 
+                                                    <span class="text-white">UR點數</span><br>
+                                                    <small class="text-light">(近期最高100k，約價值$1,600)</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -804,16 +836,16 @@
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">💎 核心權益</div>
                                                 <div class="small text-white lh-sm">
-                                                    <div>• 旅行餐飲 2X 點數</div>
-                                                    <div>• 旅行保險保障</div>
-                                                    <div>• 轉點夥伴1:1</div>
-                                                    <div>• Chase平台25%加值</div>
+                                                    <div>• Chase旅遊平台 5X 點數</div>
+                                                    <div>• 餐飲/流媒體/網購 3X 點數</div>
+                                                    <div>• 年度$50酒店報銷</div>
+                                                    <div>• 年度10% Bonus</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flip-hint">
-                                        <i class="bi bi-arrow-repeat"></i> 滑鼠懸停查看詳情
+                                        <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
                                 
@@ -824,36 +856,36 @@
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-airplane me-2"></i>旅行權益</h6>
+                                                <h6 class="text-gold"><i class="bi bi-airplane me-2"></i>消費回饋</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>旅行消費：2X UR點數</li>
-                                                    <li>餐廳消費：2X UR點數</li>
-                                                    <li>旅行保險與保障</li>
-                                                    <li>租車保險包含</li>
+                                                    <li>Chase旅遊平台：5X UR點數</li>
+                                                    <li>餐廳/流媒體/網購：3X UR點數</li>
+                                                    <li>其他旅行消費：2X UR點數</li>
+                                                    <li>其他消費：1X UR點數</li>
                                                 </ul>
                                             </div>
                                         </div>
                                         
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-arrow-repeat me-2"></i>轉點權益</h6>
+                                                <h6 class="text-gold"><i class="bi bi-arrow-repeat me-2"></i>UR點數權益</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>轉至航空夥伴：1:1比例</li>
-                                                    <li>轉至酒店夥伴：1:1比例</li>
-                                                    <li>Chase旅遊平台25%加值</li>
-                                                    <li>現金兌換：1¢/點</li>
+                                                    <li>轉至航空/酒店夥伴：1:1比例</li>
+                                                    <li>Chase旅遊平台：1.25¢/點</li>
+                                                    <li>Pay Yourself Back：1.25¢/點</li>
+                                                    <li>年度10% Bonus回饋</li>
                                                 </ul>
                                             </div>
                                         </div>
                                         
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-shield-check me-2"></i>保護權益</h6>
+                                                <h6 class="text-gold"><i class="bi bi-shield-check me-2"></i>附加福利</h6>
                                                 <ul class="mb-0 small">
+                                                    <li>年度$50酒店報銷</li>
+                                                    <li>Primary租車保險</li>
                                                     <li>無境外交易手續費</li>
-                                                    <li>旅行意外保險</li>
-                                                    <li>行李延誤保障</li>
-                                                    <li>24/7客戶服務</li>
+                                                    <li>旅行保險與保障</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -870,6 +902,7 @@
                     <!-- Chase Ritz-Carlton Card -->
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                         <div class="flip-card">
+                            <div class="flip-toggle-btn">+</div>
                             <div class="flip-card-inner">
                                 <!-- 卡片正面 -->
                                 <div class="flip-card-front">
@@ -889,13 +922,13 @@
                                         <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">🎁 開卡禮</div>
-                                                <div class="text-white">
-                                                    消費 <span class="text-gold fw-bold">$4,000</span> 獲得
+                                                <div class="text-white small">
+                                                    前3個月消費 <span class="text-gold fw-bold">$4,000</span> 獲得
                                                 </div>
                                                 <div class="mt-1">
-                                                    <span style="text-decoration: line-through;" class="text-light small">3晚</span> 
                                                     <span class="text-gold fw-bold fs-4">5晚</span> 
-                                                    <span class="text-white">免費住宿</span>
+                                                    <span class="text-white">免費住宿券</span><br>
+                                                    <small class="text-light">(up to 85k Marriott點數)</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -912,7 +945,7 @@
                                                 <div class="col-6">
                                                     <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
-                                                        <div class="text-white fw-bold">5X 麗思</div>
+                                                        <div class="text-white fw-bold">6X 萬豪</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -920,16 +953,16 @@
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">👑 奢華權益</div>
                                                 <div class="small text-white lh-sm">
-                                                    <div>• 麗思卡爾頓 5X 點數</div>
-                                                    <div>• 每年$300旅行積分</div>
-                                                    <div>• 自動金卡菁英會籍</div>
-                                                    <div>• Priority Pass貴賓室</div>
+                                                    <div>• 萬豪酒店 6X 點數</div>
+                                                    <div>• 年度$300航空報銷</div>
+                                                    <div>• 自動萬豪金卡會籍</div>
+                                                    <div>• Priority Pass Select</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="flip-hint">
-                                        <i class="bi bi-arrow-repeat"></i> 滑鼠懸停查看詳情
+                                        <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
                                 
@@ -940,24 +973,24 @@
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-gem me-2"></i>奢華酒店</h6>
+                                                <h6 class="text-gold"><i class="bi bi-gem me-2"></i>萬豪酒店權益</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>麗思卡爾頓：5X UR點數</li>
+                                                    <li>萬豪酒店：6X Marriott點數</li>
                                                     <li>自動萬豪金卡菁英會籍</li>
-                                                    <li>每年1-2晚免費住宿券</li>
-                                                    <li>房型升等與延遲退房</li>
+                                                    <li>年度免費住宿券(up to 85k)</li>
+                                                    <li>消費$75k升級白金會籍</li>
                                                 </ul>
                                             </div>
                                         </div>
                                         
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>高倍回饋</h6>
+                                                <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>消費回饋</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>旅行消費：3X UR點數</li>
-                                                    <li>餐廳消費：3X UR點數</li>
-                                                    <li>其他消費：1X UR點數</li>
-                                                    <li>Chase旅遊平台加值</li>
+                                                    <li>餐廳消費：3X Marriott點數</li>
+                                                    <li>機票消費：3X Marriott點數</li>
+                                                    <li>租車消費：3X Marriott點數</li>
+                                                    <li>其他消費：2X Marriott點數</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -966,10 +999,10 @@
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-star-fill me-2"></i>專屬禮遇</h6>
                                                 <ul class="mb-0 small">
-                                                    <li>年度$300旅行積分</li>
-                                                    <li>Priority Pass機場貴賓室</li>
-                                                    <li>無境外交易手續費</li>
-                                                    <li>專屬客戶經理</li>
+                                                    <li>年度$300航空費用報銷</li>
+                                                    <li>$100麗思卡爾頓酒店費用報銷</li>
+                                                    <li>Priority Pass Select貴賓室</li>
+                                                    <li>15個菁英夜數積分</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1499,6 +1532,31 @@
         
         // AOS 動畫完成後也執行一次對齊
         setTimeout(alignCardHeaders, 1500);
+
+        // 翻轉卡片功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const flipButtons = document.querySelectorAll('.flip-toggle-btn');
+            
+            flipButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const flipCard = this.closest('.flip-card');
+                    const isFlipped = flipCard.classList.contains('flipped');
+                    
+                    if (isFlipped) {
+                        // 翻回正面
+                        flipCard.classList.remove('flipped');
+                        this.textContent = '+';
+                    } else {
+                        // 翻到背面
+                        flipCard.classList.add('flipped');
+                        this.textContent = '−';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
