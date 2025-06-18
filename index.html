@@ -14,8 +14,130 @@
     <!-- 在 </head> 標籤前加入 Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     
-    <!-- 關於我們區塊的額外樣式 -->
+    <!-- 關於我們區塊的額外樣式和手機版RWD優化 -->
     <style>
+        /* 防止水平滾動 */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        
+        /* 手機版導覽列優化 */
+        @media (max-width: 991.98px) {
+            .navbar-brand {
+                font-size: 1rem;
+            }
+            
+            .navbar-brand img {
+                height: 35px !important;
+            }
+            
+            .navbar-toggler {
+                border: 1px solid var(--gold-color);
+                padding: 0.25rem 0.5rem;
+            }
+            
+            .navbar-toggler:focus {
+                box-shadow: 0 0 0 0.2rem rgba(197, 165, 114, 0.25);
+            }
+            
+            .navbar-collapse {
+                margin-top: 1rem;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                padding-top: 1rem;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-link:hover {
+                background: rgba(197, 165, 114, 0.1);
+                color: var(--gold-color) !important;
+            }
+        }
+        
+        /* 手機版容器滿版寬度 */
+        @media (max-width: 991.98px) {
+            .container {
+                max-width: 100% !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+            
+            /* 特殊區域保持適當內距 */
+            .hero-section .container,
+            .contact-section .container,
+            .footer-section .container {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+        }
+        
+        /* 手機版卡片優化 */
+        @media (max-width: 767.98px) {
+            .flip-card {
+                height: 500px;
+                margin-bottom: 2rem;
+            }
+            
+            .card-header h5 {
+                font-size: 1rem;
+            }
+            
+            .flip-card-back {
+                padding: 15px;
+            }
+            
+            .flip-card-back h4 {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+        
+        /* 手機版服務卡片 */
+        @media (max-width: 767.98px) {
+            .service-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .premium-service-card .row {
+                text-align: center;
+            }
+            
+            .premium-service-card .col-md-3,
+            .premium-service-card .col-md-6,
+            .premium-service-card .col-md-3 {
+                margin-bottom: 1.5rem;
+            }
+        }
+        
+        /* 手機版時間軸優化 */
+        @media (max-width: 767.98px) {
+            .timeline-item {
+                margin-bottom: 3rem;
+            }
+            
+            .timeline-date {
+                position: relative;
+                float: none;
+                width: auto;
+                margin: 0 0 1rem 0;
+                text-align: center;
+            }
+            
+            .timeline-content {
+                margin-left: 0;
+                padding-left: 0;
+            }
+            
+            .event-gallery .swiper {
+                height: 250px;
+            }
+        }
+        
         .service-step:hover {
             border-color: var(--gold-color) !important;
             transform: translateY(-2px);
