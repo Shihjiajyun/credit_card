@@ -1441,4 +1441,292 @@ html, body {
     display: none;
 }
 
+/* 文章卡片樣式 */
+.article-card-enhanced {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article-card-enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.article-featured-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.article-featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.article-card-enhanced:hover .article-featured-image img {
+    transform: scale(1.05);
+}
+
+.article-placeholder-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color), #1a365d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.article-placeholder-image i {
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.article-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.article-meta-overlay {
+    display: flex;
+    gap: 15px;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.article-meta-overlay span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.article-content {
+    padding: 20px;
+}
+
+.article-category-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-right: 8px;
+    background: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.article-title {
+    font-size: 1.25rem;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.article-title a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.article-title a:hover {
+    color: var(--gold-color);
+}
+
+.article-excerpt {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.article-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.article-read-more {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.article-read-more:hover {
+    color: var(--gold-color);
+}
+
+.article-read-more i {
+    transition: transform 0.3s ease;
+}
+
+.article-read-more:hover i {
+    transform: translateX(5px);
+}
+
+/* 分頁樣式改進 */
+.pagination {
+    margin-top: 3rem;
+}
+
+.pagination .page-link {
+    color: var(--primary-color);
+    border-color: rgba(197, 165, 114, 0.3);
+    padding: 0.75rem 1rem;
+    margin: 0 4px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    color: white;
+    background-color: var(--gold-color);
+    border-color: var(--gold-color);
+    transform: translateY(-2px);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;
+    border-color: #f0f0f0;
+}
+
+/* 搜索表單樣式 */
+.input-group .form-control {
+    border-right: none;
+    border-color: rgba(197, 165, 114, 0.3);
+}
+
+.input-group .form-control:focus {
+    border-color: var(--gold-color);
+    box-shadow: 0 0 0 0.2rem rgba(197, 165, 114, 0.25);
+}
+
+.input-group .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-left: none;
+}
+
+.input-group .btn-primary:hover {
+    background-color: var(--gold-color);
+    border-color: var(--gold-color);
+}
+
+.form-select {
+    border-color: rgba(197, 165, 114, 0.3);
+}
+
+.form-select:focus {
+    border-color: var(--gold-color);
+    box-shadow: 0 0 0 0.2rem rgba(197, 165, 114, 0.25);
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .article-card-enhanced {
+        margin-bottom: 2rem;
+    }
+    
+    .article-featured-image {
+        height: 160px;
+    }
+    
+    .article-content {
+        padding: 1rem;
+    }
+    
+    .article-title {
+        font-size: 1.1rem;
+    }
+    
+    .hero-section-small {
+        min-height: 25vh;
+    }
+    
+    .pagination .page-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 首頁文章卡片圖片樣式 */
+.article-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-color), #2c5282);
+}
+
+.article-featured-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.article-card:hover .article-featured-image {
+    transform: scale(1.05);
+}
+
+.article-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 15px;
+}
+
+.article-card:hover .article-image-overlay {
+    opacity: 1;
+}
+
+.article-meta-badges {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.meta-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary-color);
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    backdrop-filter: blur(10px);
+}
+
+.meta-badge i {
+    font-size: 0.7rem;
+}
+
+/* 沒有圖片時的文章卡片調整 */
+.article-card .card-body {
+    padding: 1.5rem;
+}
+
 

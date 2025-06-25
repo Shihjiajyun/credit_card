@@ -1,5 +1,17 @@
+<?php
+// 獲取最新文章
+try {
+    require_once 'config.php';
+    $articles_stmt = $pdo->prepare("SELECT * FROM articles WHERE status = 'published' ORDER BY published_at DESC LIMIT 6");
+    $articles_stmt->execute();
+    $latest_articles = $articles_stmt->fetchAll();
+} catch (PDOException $e) {
+    $latest_articles = [];
+}
+?>
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +26,91 @@
     <!-- 在 </head> 標籤前加入 Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
+    <style>
+    .article-card {
+        height: 100%;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .article-image-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 60%;
+        overflow: hidden;
+        background-color: #f8f9fa;
+    }
+
+    .article-featured-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .article-card .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem;
+    }
+
+    .article-card .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+        height: 3.5rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .article-card .card-text {
+        flex: 1;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        color: #6c757d;
+    }
+
+    .article-footer {
+        padding: 1rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fa;
+        margin-top: auto;
+    }
+
+    .article-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .article-tags .badge {
+        font-size: 0.75rem;
+        padding: 0.5em 0.8em;
+        background-color: #f8f9fa;
+        color: #6c757d;
+        border: 1px solid #dee2e6;
+        font-weight: 500;
+    }
+
+    .article-tags .badge:hover {
+        background-color: #e9ecef;
+    }
+    </style>
 </head>
+
 <body>
     <!-- 導航欄 -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-custom-navy fixed-top">
@@ -33,6 +129,7 @@
                     <li class="nav-item"><a class="nav-link" href="#cards">信用卡推薦</a></li>
                     <li class="nav-item"><a class="nav-link" href="#events">活動紀錄</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">服務介紹</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#articles">最新文章</a></li>
                     <li class="nav-item"><a class="nav-link" href="#testimonials">客戶評價</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">預約諮詢</a></li>
                 </ul>
@@ -60,12 +157,15 @@
         <div class="container">
             <div class="row g-0">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <div class="about-content-left h-100 p-5 d-flex flex-column justify-content-center" style="background: linear-gradient(135deg, var(--primary-color), #1a365d);">
+                    <div class="about-content-left h-100 p-5 d-flex flex-column justify-content-center"
+                        style="background: linear-gradient(135deg, var(--primary-color), #1a365d);">
                         <div class="text-white">
                             <div class="mb-4">
                                 <div class="d-inline-flex align-items-center mb-3">
-                                    <div class="icon-circle me-3" style="width: 60px; height: 60px; background: var(--gold-color); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                        <i class="bi bi-award-fill" style="font-size: 1.8rem; color: var(--primary-color);"></i>
+                                    <div class="icon-circle me-3"
+                                        style="width: 60px; height: 60px; background: var(--gold-color); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <i class="bi bi-award-fill"
+                                            style="font-size: 1.8rem; color: var(--primary-color);"></i>
                                     </div>
                                     <h3 class="mb-0 text-gold">專業顧問團隊</h3>
                                 </div>
@@ -73,8 +173,9 @@
                                     是一群對服務吹毛求疵的信用卡顧問組成，我們不只是幫你把卡辦好，更把每一段服務的里程，都當成自己的旅程。
                                 </p>
                             </div>
-                            
-                            <div class="highlight-quote p-4 rounded border-start border-4 border-warning" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+
+                            <div class="highlight-quote p-4 rounded border-start border-4 border-warning"
+                                style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
                                 <p class="mb-0 fw-medium" style="font-size: 1.15rem; line-height: 1.6;">
                                     <i class="bi bi-quote text-gold me-2"></i>
                                     因為，這不只是「一張卡」的服務，而是一段「玩賺世界的哩程」。
@@ -83,59 +184,73 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6" data-aos="fade-left">
-                    <div class="about-content-right h-100 p-5 d-flex flex-column justify-content-center" style="background: white;">
+                    <div class="about-content-right h-100 p-5 d-flex flex-column justify-content-center"
+                        style="background: white;">
                         <div class="service-journey">
                             <div class="mb-4">
                                 <h4 class="text-dark mb-3 d-flex align-items-center">
-                                    <i class="bi bi-arrow-right-circle-fill text-gold me-3" style="font-size: 1.5rem;"></i>
+                                    <i class="bi bi-arrow-right-circle-fill text-gold me-3"
+                                        style="font-size: 1.5rem;"></i>
                                     完整服務流程
                                 </h4>
                                 <p class="text-muted mb-4">從選卡到售後客服，我們都不缺席</p>
                             </div>
-                            
+
                             <div class="service-steps">
                                 <div class="row g-3">
                                     <div class="col-6 col-md-4">
-                                        <div class="service-step text-center p-3 rounded shadow-sm" style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
-                                            <i class="bi bi-1-circle-fill text-gold mb-2" style="font-size: 1.5rem;"></i>
+                                        <div class="service-step text-center p-3 rounded shadow-sm"
+                                            style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
+                                            <i class="bi bi-1-circle-fill text-gold mb-2"
+                                                style="font-size: 1.5rem;"></i>
                                             <div class="fw-semibold text-dark">選卡</div>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4">
-                                        <div class="service-step text-center p-3 rounded shadow-sm" style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
-                                            <i class="bi bi-2-circle-fill text-gold mb-2" style="font-size: 1.5rem;"></i>
+                                        <div class="service-step text-center p-3 rounded shadow-sm"
+                                            style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
+                                            <i class="bi bi-2-circle-fill text-gold mb-2"
+                                                style="font-size: 1.5rem;"></i>
                                             <div class="fw-semibold text-dark">核卡</div>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4">
-                                        <div class="service-step text-center p-3 rounded shadow-sm" style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
-                                            <i class="bi bi-3-circle-fill text-gold mb-2" style="font-size: 1.5rem;"></i>
+                                        <div class="service-step text-center p-3 rounded shadow-sm"
+                                            style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
+                                            <i class="bi bi-3-circle-fill text-gold mb-2"
+                                                style="font-size: 1.5rem;"></i>
                                             <div class="fw-semibold text-dark">開通</div>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4">
-                                        <div class="service-step text-center p-3 rounded shadow-sm" style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
-                                            <i class="bi bi-4-circle-fill text-gold mb-2" style="font-size: 1.5rem;"></i>
+                                        <div class="service-step text-center p-3 rounded shadow-sm"
+                                            style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
+                                            <i class="bi bi-4-circle-fill text-gold mb-2"
+                                                style="font-size: 1.5rem;"></i>
                                             <div class="fw-semibold text-dark">刷卡技巧</div>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4">
-                                        <div class="service-step text-center p-3 rounded shadow-sm" style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
-                                            <i class="bi bi-5-circle-fill text-gold mb-2" style="font-size: 1.5rem;"></i>
+                                        <div class="service-step text-center p-3 rounded shadow-sm"
+                                            style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
+                                            <i class="bi bi-5-circle-fill text-gold mb-2"
+                                                style="font-size: 1.5rem;"></i>
                                             <div class="fw-semibold text-dark">權益使用</div>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4">
-                                        <div class="service-step text-center p-3 rounded shadow-sm" style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
-                                            <i class="bi bi-6-circle-fill text-gold mb-2" style="font-size: 1.5rem;"></i>
+                                        <div class="service-step text-center p-3 rounded shadow-sm"
+                                            style="background: #f8f9fa; border: 2px solid transparent; transition: all 0.3s ease;">
+                                            <i class="bi bi-6-circle-fill text-gold mb-2"
+                                                style="font-size: 1.5rem;"></i>
                                             <div class="fw-semibold text-dark">售後客服</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="mt-4 pt-3 border-top">
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
@@ -145,7 +260,8 @@
                                         </small>
                                     </div>
                                     <div class="col-md-4 text-md-end mt-2 mt-md-0">
-                                        <a href="https://line.me/ti/p/@927ukytp" class="btn btn-outline-primary btn-sm" target="_blank">
+                                        <a href="https://line.me/ti/p/@927ukytp" class="btn btn-outline-primary btn-sm"
+                                            target="_blank">
                                             <i class="bi bi-chat-dots me-1"></i>
                                             了解更多
                                         </a>
@@ -173,7 +289,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 旅行酒店系列 -->
             <div class="mb-5 pb-3" data-aos="fade-up">
                 <div class="row">
@@ -196,14 +312,16 @@
                                             <h5 class="mb-0 text-gold fw-bold">Marriott Bonvoy Brilliant®</h5>
                                             <small class="text-light">萬豪璀璨卡</small>
                                         </div>
-                                        
+
                                         <!-- 卡片圖片 -->
                                         <div class="text-center py-3" style="background: rgba(255,255,255,0.05);">
-                                            <img src="./img/American _1.png" alt="Marriott Bonvoy Brilliant Card" class="img-fluid" style="max-width: 180px; border-radius: 10px;">
+                                            <img src="./img/American _1.png" alt="Marriott Bonvoy Brilliant Card"
+                                                class="img-fluid" style="max-width: 180px; border-radius: 10px;">
                                         </div>
-                                        
+
                                         <!-- 開卡禮區塊 -->
-                                        <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
+                                        <div class="px-3 py-2"
+                                            style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">開卡禮</div>
                                                 <div class="text-white small">
@@ -211,29 +329,31 @@
                                                     獲得
                                                 </div>
                                                 <div class="mt-1">
-                                                    <span class="text-gold fw-bold fs-4">150,000</span> 
+                                                    <span class="text-gold fw-bold fs-4">150,000</span>
                                                     <span class="text-white">Marriott積分</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- 年費與權益 -->
                                         <div class="card-body py-3">
                                             <div class="row g-2 mb-3">
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">年費</div>
                                                         <div class="text-white fw-bold">$650</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
                                                         <div class="text-white fw-bold">6X 萬豪</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">核心權益</div>
                                                 <div class="small text-white lh-sm">
@@ -249,11 +369,11 @@
                                         <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
-                                
+
                                 <!-- 卡片背面 -->
                                 <div class="flip-card-back">
                                     <h4 class="text-gold mb-4">萬豪尊榮權益</h4>
-                                    
+
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
@@ -266,7 +386,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>消費回饋</h6>
@@ -278,7 +398,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-star-fill me-2"></i>專屬禮遇</h6>
@@ -291,7 +411,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-4">
                                         <a href="#consultation" class="btn btn-gold w-100">立即諮詢申請</a>
                                     </div>
@@ -313,14 +433,16 @@
                                             <h5 class="mb-0 text-gold fw-bold">Marriott Bonvoy Business®</h5>
                                             <small class="text-light">萬豪商務卡</small>
                                         </div>
-                                        
+
                                         <!-- 卡片圖片 -->
                                         <div class="text-center py-3" style="background: rgba(255,255,255,0.05);">
-                                            <img src="./img/American _2.png" alt="Marriott Bonvoy Business Card" class="img-fluid" style="max-width: 180px; border-radius: 10px;">
+                                            <img src="./img/American _2.png" alt="Marriott Bonvoy Business Card"
+                                                class="img-fluid" style="max-width: 180px; border-radius: 10px;">
                                         </div>
-                                        
+
                                         <!-- 開卡禮區塊 -->
-                                        <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
+                                        <div class="px-3 py-2"
+                                            style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">開卡禮</div>
                                                 <div class="text-white">
@@ -332,24 +454,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- 年費與權益 -->
                                         <div class="card-body py-3">
                                             <div class="row g-2 mb-3">
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">年費</div>
                                                         <div class="text-white fw-bold">$125</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
                                                         <div class="text-white fw-bold">6X 萬豪</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">核心權益</div>
                                                 <div class="small text-white lh-sm">
@@ -365,11 +489,11 @@
                                         <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
-                                
+
                                 <!-- 卡片背面 -->
                                 <div class="flip-card-back">
                                     <h4 class="text-gold mb-4">商務旅行專屬</h4>
-                                    
+
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
@@ -382,7 +506,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-briefcase me-2"></i>消費回饋</h6>
@@ -394,7 +518,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-star me-2"></i>專屬禮遇</h6>
@@ -407,7 +531,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-4">
                                         <a href="#consultation" class="btn btn-gold w-100">立即諮詢申請</a>
                                     </div>
@@ -429,45 +553,49 @@
                                             <h5 class="mb-0 text-gold fw-bold">Hilton Honors®</h5>
                                             <small class="text-light">希爾頓榮譽卡</small>
                                         </div>
-                                        
+
                                         <!-- 卡片圖片 -->
                                         <div class="text-center py-3" style="background: rgba(255,255,255,0.05);">
-                                            <img src="./img/American _3.png" alt="Hilton Honors Card" class="img-fluid" style="max-width: 180px; border-radius: 10px;">
+                                            <img src="./img/American _3.png" alt="Hilton Honors Card" class="img-fluid"
+                                                style="max-width: 180px; border-radius: 10px;">
                                         </div>
-                                        
+
                                         <!-- 開卡禮區塊 -->
-                                        <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
+                                        <div class="px-3 py-2"
+                                            style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">開卡禮</div>
                                                 <div class="text-white small">
                                                     前6個月消費 <span class="text-gold fw-bold">$2,000</span> 獲得
                                                 </div>
                                                 <div class="mt-1">
-                                                    <span class="text-gold fw-bold fs-4">100,000</span> 
+                                                    <span class="text-gold fw-bold fs-4">100,000</span>
                                                     <span class="text-white">Hilton積分</span><br>
-                                                    <span class="text-gold fw-bold">+ $100</span> 
+                                                    <span class="text-gold fw-bold">+ $100</span>
                                                     <span class="text-white small">帳單抵扣</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- 年費與權益 -->
                                         <div class="card-body py-3">
                                             <div class="row g-2 mb-3">
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">年費</div>
                                                         <div class="text-white fw-bold">$0</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
                                                         <div class="text-white fw-bold">7X 希爾頓</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">核心權益</div>
                                                 <div class="small text-white lh-sm">
@@ -483,11 +611,11 @@
                                         <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
-                                
+
                                 <!-- 卡片背面 -->
                                 <div class="flip-card-back">
                                     <h4 class="text-gold mb-4">希爾頓專屬權益</h4>
-                                    
+
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
@@ -500,7 +628,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>消費回饋</h6>
@@ -512,7 +640,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-star me-2"></i>專屬禮遇</h6>
@@ -525,7 +653,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-4">
                                         <a href="#consultation" class="btn btn-gold w-100">立即諮詢申請</a>
                                     </div>
@@ -558,14 +686,16 @@
                                             <h5 class="mb-0 text-gold fw-bold">Chase IHG One Rewards Premier®</h5>
                                             <small class="text-light">洲際酒店卡</small>
                                         </div>
-                                        
+
                                         <!-- 卡片圖片 -->
                                         <div class="text-center py-3" style="background: rgba(255,255,255,0.05);">
-                                            <img src="./img/chase_1.png" alt="Chase IHG Premier Card" class="img-fluid" style="max-width: 180px; border-radius: 10px;">
+                                            <img src="./img/chase_1.png" alt="Chase IHG Premier Card" class="img-fluid"
+                                                style="max-width: 180px; border-radius: 10px;">
                                         </div>
-                                        
+
                                         <!-- 開卡禮區塊 -->
-                                        <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
+                                        <div class="px-3 py-2"
+                                            style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">開卡禮</div>
                                                 <div class="text-white small">
@@ -577,24 +707,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- 年費與權益 -->
                                         <div class="card-body py-3">
                                             <div class="row g-2 mb-3">
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">年費</div>
                                                         <div class="text-white fw-bold">$99</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
                                                         <div class="text-white fw-bold">10X IHG</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">核心權益</div>
                                                 <div class="small text-white lh-sm">
@@ -610,11 +742,11 @@
                                         <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
-                                
+
                                 <!-- 卡片背面 -->
                                 <div class="flip-card-back">
                                     <h4 class="text-gold mb-4">IHG 酒店專屬權益</h4>
-                                    
+
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
@@ -627,7 +759,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>消費回饋</h6>
@@ -639,7 +771,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-star me-2"></i>特殊福利</h6>
@@ -652,7 +784,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-4">
                                         <a href="#consultation" class="btn btn-gold w-100">立即諮詢申請</a>
                                     </div>
@@ -674,44 +806,48 @@
                                             <h5 class="mb-0 text-gold fw-bold">Chase Sapphire Preferred®</h5>
                                             <small class="text-light">藍寶石優選卡</small>
                                         </div>
-                                        
+
                                         <!-- 卡片圖片 -->
                                         <div class="text-center py-3" style="background: rgba(255,255,255,0.05);">
-                                            <img src="./img/chase_2.png" alt="Chase Sapphire Preferred Card" class="img-fluid" style="max-width: 180px; border-radius: 10px;">
+                                            <img src="./img/chase_2.png" alt="Chase Sapphire Preferred Card"
+                                                class="img-fluid" style="max-width: 180px; border-radius: 10px;">
                                         </div>
-                                        
+
                                         <!-- 開卡禮區塊 -->
-                                        <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
+                                        <div class="px-3 py-2"
+                                            style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">開卡禮</div>
                                                 <div class="text-white small">
                                                     前3個月消費 <span class="text-gold fw-bold">$4,000</span> 獲得
                                                 </div>
                                                 <div class="mt-1">
-                                                    <span class="text-gold fw-bold fs-4">60,000</span> 
+                                                    <span class="text-gold fw-bold fs-4">60,000</span>
                                                     <span class="text-white">UR點數</span><br>
                                                     <small class="text-light">(近期最高100k)</small>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- 年費與權益 -->
                                         <div class="card-body py-3">
                                             <div class="row g-2 mb-3">
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">年費</div>
                                                         <div class="text-white fw-bold">$95</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
                                                         <div class="text-white fw-bold">2X 旅行</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">核心權益</div>
                                                 <div class="small text-white lh-sm">
@@ -727,11 +863,11 @@
                                         <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
-                                
+
                                 <!-- 卡片背面 -->
                                 <div class="flip-card-back">
                                     <h4 class="text-gold mb-4">Chase Ultimate Rewards</h4>
-                                    
+
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
@@ -744,7 +880,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-arrow-repeat me-2"></i>UR點數權益</h6>
@@ -756,7 +892,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-shield-check me-2"></i>附加福利</h6>
@@ -769,7 +905,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-4">
                                         <a href="#consultation" class="btn btn-gold w-100">立即諮詢申請</a>
                                     </div>
@@ -791,14 +927,16 @@
                                             <h5 class="mb-0 text-gold fw-bold">The Ritz-Carlton Credit Card®</h5>
                                             <small class="text-light">麗思卡爾頓卡</small>
                                         </div>
-                                        
+
                                         <!-- 卡片圖片 -->
                                         <div class="text-center py-3" style="background: rgba(255,255,255,0.05);">
-                                            <img src="./img/chase_3.png" alt="Chase Ritz-Carlton Card" class="img-fluid" style="max-width: 180px; border-radius: 10px;">
+                                            <img src="./img/chase_3.png" alt="Chase Ritz-Carlton Card" class="img-fluid"
+                                                style="max-width: 180px; border-radius: 10px;">
                                         </div>
-                                        
+
                                         <!-- 開卡禮區塊 -->
-                                        <div class="px-3 py-2" style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
+                                        <div class="px-3 py-2"
+                                            style="background: rgba(255, 215, 0, 0.1); border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3);">
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">開卡禮</div>
                                                 <div class="text-white small">
@@ -806,24 +944,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- 年費與權益 -->
                                         <div class="card-body py-3">
                                             <div class="row g-2 mb-3">
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">年費</div>
                                                         <div class="text-white fw-bold">$450</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="text-center p-2 rounded" style="background: rgba(255,255,255,0.1);">
+                                                    <div class="text-center p-2 rounded"
+                                                        style="background: rgba(255,255,255,0.1);">
                                                         <div class="text-gold small fw-bold">主要倍數</div>
                                                         <div class="text-white fw-bold">6X 萬豪</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-2">核心權益</div>
                                                 <div class="small text-white lh-sm">
@@ -839,11 +979,11 @@
                                         <i class="bi bi-info-circle"></i> 點擊右上角按鈕查看詳情
                                     </div>
                                 </div>
-                                
+
                                 <!-- 卡片背面 -->
                                 <div class="flip-card-back">
                                     <h4 class="text-gold mb-4">麗思卡爾頓尊榮</h4>
-                                    
+
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
@@ -856,7 +996,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-credit-card me-2"></i>消費回饋</h6>
@@ -868,7 +1008,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
                                                 <h6 class="text-gold"><i class="bi bi-star-fill me-2"></i>專屬禮遇</h6>
@@ -881,7 +1021,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="mt-4">
                                         <a href="#consultation" class="btn btn-gold w-100">立即諮詢申請</a>
                                     </div>
@@ -900,7 +1040,7 @@
             <h2 class="text-center mb-5 text-white" data-aos="fade-up">
                 <span class="text-gold">活動</span>紀錄
             </h2>
-            
+
             <!-- 活動時間軸 -->
             <div class="timeline">
                 <!-- 台中萬楓酒店活動 -->
@@ -1170,27 +1310,34 @@
                 </div>
                 <!-- 底部大卡片 -->
                 <div class="col-12 mt-5" data-aos="fade-up" data-aos-delay="600">
-                    <div class="card service-card h-100 bg-gradient-dark text-white premium-service-card" style="border: 3px solid var(--gold-color);">
+                    <div class="card service-card h-100 bg-gradient-dark text-white premium-service-card"
+                        style="border: 3px solid var(--gold-color);">
                         <div class="card-body p-5">
                             <div class="row align-items-center">
                                 <div class="col-md-3 text-center">
-                                    <div class="service-icon" style="background: var(--gold-color); color: var(--primary-color); width: 120px; height: 120px; margin-bottom: 15px;">
+                                    <div class="service-icon"
+                                        style="background: var(--gold-color); color: var(--primary-color); width: 120px; height: 120px; margin-bottom: 15px;">
                                         <i class="bi bi-stars" style="font-size: 3rem;"></i>
                                     </div>
                                     <div class="badge bg-gold text-dark p-2 fs-6">熱門選擇</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h4 class="card-title text-gold" style="font-size: 2rem; margin-bottom: 1rem;">全程陪伴服務</h4>
-                        <p class="card-text" style="font-size: 1.2rem;">整合以上所有服務，提供全程陪伴的玩賺世界哩程。從選卡諮詢、ITIN申辦、美國地址租借、電話申辦到銀行帳戶開設，我們陪您走過每一個哩程碑，直到您熟練掌握所有使用技巧。</p>
-                        <div class="mt-3 p-3 rounded" style="background: rgba(255,255,255,0.1); border-left: 4px solid var(--gold-color);">
-                            <small class="text-warning fw-medium">
-                                <i class="bi bi-info-circle me-2"></i>
-                                申請卡片時，都會跟客人討論，以客人的需求為主，適時引導出客人最佳效益與方向。前置作業也會依據絕對必要的程序做準備，事半功倍，且客人無憂為宗旨。
-                            </small>
-                        </div>
+                                    <h4 class="card-title text-gold" style="font-size: 2rem; margin-bottom: 1rem;">
+                                        全程陪伴服務</h4>
+                                    <p class="card-text" style="font-size: 1.2rem;">
+                                        整合以上所有服務，提供全程陪伴的玩賺世界哩程。從選卡諮詢、ITIN申辦、美國地址租借、電話申辦到銀行帳戶開設，我們陪您走過每一個哩程碑，直到您熟練掌握所有使用技巧。
+                                    </p>
+                                    <div class="mt-3 p-3 rounded"
+                                        style="background: rgba(255,255,255,0.1); border-left: 4px solid var(--gold-color);">
+                                        <small class="text-warning fw-medium">
+                                            <i class="bi bi-info-circle me-2"></i>
+                                            申請卡片時，都會跟客人討論，以客人的需求為主，適時引導出客人最佳效益與方向。前置作業也會依據絕對必要的程序做準備，事半功倍，且客人無憂為宗旨。
+                                        </small>
+                                    </div>
                                 </div>
                                 <div class="col-md-3 text-center">
-                                    <a href="https://line.me/ti/p/@927ukytp" class="btn btn-gold btn-lg mt-3 w-100 p-3" target="_blank" style="font-size: 1.2rem;color: white;">立即諮詢</a>
+                                    <a href="https://line.me/ti/p/@927ukytp" class="btn btn-gold btn-lg mt-3 w-100 p-3"
+                                        target="_blank" style="font-size: 1.2rem;color: white;">立即諮詢</a>
                                 </div>
                             </div>
                         </div>
@@ -1330,41 +1477,134 @@
         </div>
     </section>
 
+    <!-- 最新文章 -->
+    <section id="articles" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">
+                <span class="text-gold">最新</span>文章
+            </h2>
+
+            <?php if (!empty($latest_articles)): ?>
+            <div class="row g-4">
+                <?php foreach ($latest_articles as $article): ?>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="<?= ($article['id'] % 3) * 100 ?>">
+                    <div class="card article-card h-100">
+                        <?php if ($article['featured_image']): ?>
+                        <div class="article-image-container">
+                            <img src="<?= htmlspecialchars($article['featured_image']) ?>"
+                                class="card-img-top article-featured-image"
+                                alt="<?= htmlspecialchars($article['title']) ?>">
+                            <div class="article-image-overlay">
+                                <div class="article-meta-badges">
+                                    <span class="meta-badge">
+                                        <i class="bi bi-calendar"></i>
+                                        <?= date('m/d', strtotime($article['published_at'])) ?>
+                                    </span>
+                                    <span class="meta-badge">
+                                        <i class="bi bi-eye"></i>
+                                        <?= $article['views'] ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                        <div class="card-body">
+                            <div class="article-meta mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar me-1"></i>
+                                    <?= date('Y年m月d日', strtotime($article['published_at'])) ?>
+                                </small>
+                                <small class="text-muted ms-3">
+                                    <i class="bi bi-eye me-1"></i>
+                                    <?= $article['views'] ?> 次觀看
+                                </small>
+                            </div>
+                            <h5 class="card-title"><?= htmlspecialchars($article['title']) ?></h5>
+                            <?php if ($article['excerpt']): ?>
+                            <p class="card-text text-muted">
+                                <?= htmlspecialchars(substr($article['excerpt'], 0, 120)) ?><?= strlen($article['excerpt']) > 120 ? '...' : '' ?>
+                            </p>
+                            <?php endif; ?>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="article.php?slug=<?= urlencode($article['slug']) ?>"
+                                    class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-arrow-right me-1"></i>
+                                    閱讀更多
+                                </a>
+                                <?php if ($article['meta_keywords']): ?>
+                                <div class="article-tags">
+                                    <?php
+                                                $keywords = explode(',', $article['meta_keywords']);
+                                                foreach (array_slice($keywords, 0, 3) as $keyword): ?>
+                                    <span class="badge">
+                                        <?= htmlspecialchars(trim($keyword)) ?>
+                                    </span>
+                                    <?php endforeach; ?>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="articles.php" class="btn btn-primary btn-lg">
+                    <i class="bi bi-newspaper me-2"></i>
+                    查看更多文章
+                </a>
+            </div>
+            <?php else: ?>
+            <div class="text-center" data-aos="fade-up">
+                <div class="py-5">
+                    <i class="bi bi-newspaper display-1 text-muted mb-3"></i>
+                    <h4 class="text-muted">即將推出精彩文章</h4>
+                    <p class="text-muted">我們正在準備優質的信用卡相關內容，敬請期待！</p>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+    </section>
+
     <!-- 聯絡我們 -->
     <section id="contact" class="contact-section">
         <div class="container">
             <h2 class="text-center mb-5" data-aos="fade-up">
                 <span class="text-gold">聯絡</span>我們
             </h2>
-            
+
             <!-- LINE 聯絡按鈕 -->
             <div class="row justify-content-center mb-5" data-aos="fade-up" data-aos-delay="100">
                 <div class="col-md-6 text-center">
-                    <div class="line-contact-section p-4 rounded" style="background: rgba(255,255,255,0.1); border: 2px solid var(--gold-color);">
+                    <div class="line-contact-section p-4 rounded"
+                        style="background: rgba(255,255,255,0.1); border: 2px solid var(--gold-color);">
                         <h4 class="text-gold mb-3">
                             <i class="bi bi-line me-2"></i>
                             LINE 快速聯絡
                         </h4>
                         <p class="text-light mb-4">立即透過 LINE 與我們聯繫，獲得即時專業諮詢服務</p>
-                        <a href="https://line.me/ti/p/@927ukytp" 
-                           target="_blank" 
-                           class="btn btn-gold btn-lg px-5 py-3 d-inline-flex align-items-center" 
-                           style="background: var(--gold-color); border-color: var(--gold-color); color: var(--primary-color); box-shadow: 0 4px 15px rgba(197, 165, 114, 0.3); font-size: 1.1rem;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
-                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.628-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" fill="currentColor"/>
+                        <a href="https://line.me/ti/p/@927ukytp" target="_blank"
+                            class="btn btn-gold btn-lg px-5 py-3 d-inline-flex align-items-center"
+                            style="background: var(--gold-color); border-color: var(--gold-color); color: var(--primary-color); box-shadow: 0 4px 15px rgba(197, 165, 114, 0.3); font-size: 1.1rem;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="me-2">
+                                <path
+                                    d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.628-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"
+                                    fill="currentColor" />
                             </svg>
                             加入 LINE 好友
                         </a>
                     </div>
                 </div>
             </div>
-            
+
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10" data-aos="fade-up">
                     <div class="contact-card p-5">
                         <!-- 聯絡方式 -->
-                    
-                        
+
+
                         <!-- 預約諮詢表單 -->
                         <div>
                             <h4 class="mb-4 text-gold text-center">預約諮詢</h4>
@@ -1387,10 +1627,12 @@
                                         </select>
                                     </div>
                                     <div class="col-12">
-                                        <textarea class="form-control" rows="4" placeholder="諮詢內容或想了解的信用卡類型" required></textarea>
+                                        <textarea class="form-control" rows="4" placeholder="諮詢內容或想了解的信用卡類型"
+                                            required></textarea>
                                     </div>
                                     <div class="col-12 text-center">
-                                        <button type="submit" class="btn btn-outline-light hover-gold px-5 py-3" style="min-width: 200px;">
+                                        <button type="submit" class="btn btn-outline-light hover-gold px-5 py-3"
+                                            style="min-width: 200px;">
                                             <i class="bi bi-send me-2"></i>
                                             送出預約
                                         </button>
@@ -1464,123 +1706,123 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <!-- 在 AOS.init() 之前加入 Swiper 初始化程式碼 -->
     <script>
-        // 初始化 AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
+    // 初始化 AOS
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
 
-        // 自動計算導覽列高度
-        const navbar = document.querySelector('.navbar');
-        const updateNavbarHeight = () => {
-            const height = navbar.offsetHeight;
-            document.documentElement.style.setProperty('--navbar-height', height + 'px');
-        };
-        
-        updateNavbarHeight();
-        window.addEventListener('resize', updateNavbarHeight);
+    // 自動計算導覽列高度
+    const navbar = document.querySelector('.navbar');
+    const updateNavbarHeight = () => {
+        const height = navbar.offsetHeight;
+        document.documentElement.style.setProperty('--navbar-height', height + 'px');
+    };
 
-        // Swiper 初始化
-        const swiperOptions = {
-            slidesPerView: 1,
-            spaceBetween: 30,
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            },
-            speed: 800,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            effect: "slide",
-            preloadImages: false,
-            lazy: {
-                loadPrevNext: true,
-                loadPrevNextAmount: 2
-            },
-            watchSlidesProgress: true,
-            watchSlidesVisibility: true,
-            touchRatio: 1,
-            touchAngle: 45,
-            grabCursor: true,
-            observer: true,
-            observeParents: true,
-            releaseFormElements: true,
-            mousewheel: false,
-            preventInteractionOnTransition: true
-        };
+    updateNavbarHeight();
+    window.addEventListener('resize', updateNavbarHeight);
 
-        document.querySelectorAll('.gallerySwiper').forEach(slider => {
-            new Swiper(slider, swiperOptions);
-        });
+    // Swiper 初始化
+    const swiperOptions = {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        speed: 800,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        effect: "slide",
+        preloadImages: false,
+        lazy: {
+            loadPrevNext: true,
+            loadPrevNextAmount: 2
+        },
+        watchSlidesProgress: true,
+        watchSlidesVisibility: true,
+        touchRatio: 1,
+        touchAngle: 45,
+        grabCursor: true,
+        observer: true,
+        observeParents: true,
+        releaseFormElements: true,
+        mousewheel: false,
+        preventInteractionOnTransition: true
+    };
 
-        // 卡片標題高度對齊功能
-        function alignCardHeaders() {
-            // 處理所有卡片組
-            const cardGroups = document.querySelectorAll('.row.g-4.justify-content-center');
-            
-            cardGroups.forEach(group => {
-                const cardHeaders = group.querySelectorAll('.card-header');
-                
-                if (cardHeaders.length > 0) {
-                    // 重置高度
-                    cardHeaders.forEach(header => {
-                        header.style.minHeight = 'auto';
-                    });
-                    
-                    // 計算最大高度
-                    let maxHeight = 0;
-                    cardHeaders.forEach(header => {
-                        const height = header.offsetHeight;
-                        if (height > maxHeight) {
-                            maxHeight = height;
-                        }
-                    });
-                    
-                    // 設置統一最小高度
-                    cardHeaders.forEach(header => {
-                        header.style.minHeight = maxHeight + 'px';
-                    });
-                }
-            });
-        }
+    document.querySelectorAll('.gallerySwiper').forEach(slider => {
+        new Swiper(slider, swiperOptions);
+    });
 
-        // 頁面載入完成後執行
-        document.addEventListener('DOMContentLoaded', alignCardHeaders);
-        
-        // 視窗大小改變時重新對齊
-        window.addEventListener('resize', alignCardHeaders);
-        
-        // AOS 動畫完成後也執行一次對齊
-        setTimeout(alignCardHeaders, 1500);
+    // 卡片標題高度對齊功能
+    function alignCardHeaders() {
+        // 處理所有卡片組
+        const cardGroups = document.querySelectorAll('.row.g-4.justify-content-center');
 
-        // 翻轉卡片功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const flipButtons = document.querySelectorAll('.flip-toggle-btn');
-            
-            flipButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const flipCard = this.closest('.flip-card');
-                    const isFlipped = flipCard.classList.contains('flipped');
-                    
-                    if (isFlipped) {
-                        // 翻回正面
-                        flipCard.classList.remove('flipped');
-                        this.textContent = '+';
-                    } else {
-                        // 翻到背面
-                        flipCard.classList.add('flipped');
-                        this.textContent = '−';
+        cardGroups.forEach(group => {
+            const cardHeaders = group.querySelectorAll('.card-header');
+
+            if (cardHeaders.length > 0) {
+                // 重置高度
+                cardHeaders.forEach(header => {
+                    header.style.minHeight = 'auto';
+                });
+
+                // 計算最大高度
+                let maxHeight = 0;
+                cardHeaders.forEach(header => {
+                    const height = header.offsetHeight;
+                    if (height > maxHeight) {
+                        maxHeight = height;
                     }
                 });
+
+                // 設置統一最小高度
+                cardHeaders.forEach(header => {
+                    header.style.minHeight = maxHeight + 'px';
+                });
+            }
+        });
+    }
+
+    // 頁面載入完成後執行
+    document.addEventListener('DOMContentLoaded', alignCardHeaders);
+
+    // 視窗大小改變時重新對齊
+    window.addEventListener('resize', alignCardHeaders);
+
+    // AOS 動畫完成後也執行一次對齊
+    setTimeout(alignCardHeaders, 1500);
+
+    // 翻轉卡片功能
+    document.addEventListener('DOMContentLoaded', function() {
+        const flipButtons = document.querySelectorAll('.flip-toggle-btn');
+
+        flipButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const flipCard = this.closest('.flip-card');
+                const isFlipped = flipCard.classList.contains('flipped');
+
+                if (isFlipped) {
+                    // 翻回正面
+                    flipCard.classList.remove('flipped');
+                    this.textContent = '+';
+                } else {
+                    // 翻到背面
+                    flipCard.classList.add('flipped');
+                    this.textContent = '−';
+                }
             });
         });
+    });
     </script>
 </body>
 
