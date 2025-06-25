@@ -13,274 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <!-- 在 </head> 標籤前加入 Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    
-    <!-- 關於我們區塊的額外樣式和手機版RWD優化 -->
-    <style>
-        /* 防止水平滾動 */
-        html, body {
-            overflow-x: hidden;
-            max-width: 100%;
-        }
-        
-        /* 手機版導覽列優化 */
-        @media (max-width: 991.98px) {
-            .navbar-brand {
-                font-size: 1rem;
-            }
-            
-            .navbar-brand img {
-                height: 35px !important;
-            }
-            
-            .navbar-toggler {
-                border: 1px solid var(--gold-color);
-                padding: 0.25rem 0.5rem;
-            }
-            
-            .navbar-toggler:focus {
-                box-shadow: 0 0 0 0.2rem rgba(197, 165, 114, 0.25);
-            }
-            
-            .navbar-collapse {
-                margin-top: 1rem;
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding-top: 1rem;
-            }
-            
-            .navbar-nav .nav-link {
-                padding: 0.75rem 1rem;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-                text-align: center;
-            }
-            
-            .navbar-nav .nav-link:hover {
-                background: rgba(197, 165, 114, 0.1);
-                color: var(--gold-color) !important;
-            }
-        }
-        
-        /* 手機版容器滿版寬度 */
-        @media (max-width: 991.98px) {
-            .container {
-                max-width: 100% !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-            }
-            
-            /* 特殊區域保持適當內距 */
-            .hero-section .container,
-            .contact-section .container,
-            .footer-section .container {
-                padding-left: 20px !important;
-                padding-right: 20px !important;
-            }
-        }
-        
-        /* 手機版卡片置中優化 */
-        @media (max-width: 767.98px) {
-            .flip-card {
-                height: 500px;
-                margin-bottom: 2rem;
-            }
-            
-            .card-header h5 {
-                font-size: 1rem;
-            }
-            
-            .flip-card-back {
-                padding: 15px;
-            }
-            
-            .flip-card-back h4 {
-                font-size: 1.3rem;
-                margin-bottom: 1.5rem;
-            }
-            
-            /* 確保卡片在手機版置中 */
-            .row.g-4.justify-content-center > [class*="col-"] {
-                display: flex;
-                justify-content: center;
-            }
-            
-            .row.g-4.justify-content-center > [class*="col-"] .flip-card {
-                width: 100%;
-                max-width: 350px;
-            }
-        }
-        
-        /* 手機版服務卡片 */
-        @media (max-width: 767.98px) {
-            .service-card {
-                margin-bottom: 1.5rem;
-            }
-            
-            .premium-service-card .row {
-                text-align: center;
-            }
-            
-            .premium-service-card .col-md-3,
-            .premium-service-card .col-md-6,
-            .premium-service-card .col-md-3 {
-                margin-bottom: 1.5rem;
-            }
-        }
-        
-        /* 手機版時間軸優化 */
-        @media (max-width: 767.98px) {
-            .timeline-item {
-                margin-bottom: 3rem;
-            }
-            
-            .timeline-date {
-                position: relative;
-                float: none;
-                width: auto;
-                margin: 0 0 1rem 0;
-                text-align: center;
-            }
-            
-            .timeline-content {
-                margin-left: 0;
-                padding-left: 0;
-            }
-            
-            .event-gallery .swiper {
-                height: 250px;
-            }
-        }
-        
-        .service-step:hover {
-            border-color: var(--gold-color) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
-        }
-        
-        .about-content-left {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .about-content-left::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.03"/><circle cx="20" cy="80" r="0.5" fill="white" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
-        }
-        
-        @media (max-width: 991.98px) {
-            .about-content-left, .about-content-right {
-                min-height: 400px;
-            }
-        }
-        
-        /* 翻卡效果樣式 */
-        .flip-card {
-            background-color: transparent;
-            perspective: 1000px;
-            height: 600px;
-        }
-        
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-        
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
-        .flip-card-front {
-            background: linear-gradient(135deg, #1a365d, #2c5282);
-            color: white;
-        }
-        
-        .flip-card-back {
-            background: linear-gradient(135deg, #1a365d, #2c5282);
-            color: white;
-            transform: rotateY(180deg);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .flip-card-front .card {
-            background: transparent !important;
-            border: none !important;
-        }
-        
-        .flip-card-front .card-header {
-            background: rgba(255, 215, 0, 0.2) !important;
-            border-bottom: 2px solid var(--gold-color);
-        }
-        
-        .flip-hint {
-            position: absolute;
-            bottom: 10px;
-            right: 15px;
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-            z-index: 10;
-        }
-        
-        .flip-toggle-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            width: 30px;
-            height: 30px;
-            background: white;
-            border: 2px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        
-        .flip-toggle-btn:hover {
-            background: var(--gold-color);
-            border-color: var(--gold-color);
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        /* 隱藏卡片背面的所有圖標 */
-        .flip-card-back h6 i {
-            display: none;
-        }
-        
-        /* 隱藏提示文字的圖標 */
-        .flip-hint i {
-            display: none;
-        }
-        
 
-    </style>
 </head>
 <body>
     <!-- 導航欄 -->
@@ -298,11 +31,10 @@
                     <li class="nav-item"><a class="nav-link" href="#home">首頁</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">關於我們</a></li>
                     <li class="nav-item"><a class="nav-link" href="#cards">信用卡推薦</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#consultation">諮詢服務</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#events">活動報名</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#events">活動紀錄</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">服務介紹</a></li>
                     <li class="nav-item"><a class="nav-link" href="#testimonials">客戶評價</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">聯絡我們</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">預約諮詢</a></li>
                 </ul>
             </div>
         </div>
@@ -316,7 +48,7 @@
                     <h1 class="display-4 fw-bold mb-4" data-aos="fade-up">美國信用卡玩賺世界</h1>
                     <!-- <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">我們不只是幫你把卡辦好，更把每一段服務的哩程，都當成自己的旅程</p> -->
                     <div data-aos="fade-up" data-aos-delay="200">
-                        <a href="#consultation" class="btn btn-light btn-lg">開啟玩賺世界</a>
+                        <a href="#services" class="btn btn-light btn-lg">開啟玩賺世界</a>
                     </div>
                 </div>
             </div>
@@ -413,7 +145,7 @@
                                         </small>
                                     </div>
                                     <div class="col-md-4 text-md-end mt-2 mt-md-0">
-                                        <a href="#consultation" class="btn btn-outline-primary btn-sm">
+                                        <a href="https://line.me/ti/p/@927ukytp" class="btn btn-outline-primary btn-sm" target="_blank">
                                             <i class="bi bi-chat-dots me-1"></i>
                                             了解更多
                                         </a>
@@ -653,7 +385,7 @@
                                         
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-briefcase me-2"></i>商務消費</h6>
+                                                <h6 class="text-gold"><i class="bi bi-briefcase me-2"></i>消費回饋</h6>
                                                 <ul class="mb-0 small">
                                                     <li>全球餐廳：4X 積分</li>
                                                     <li>美國加油站：4X 積分</li>
@@ -665,7 +397,7 @@
                                         
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-star me-2"></i>商務優惠</h6>
+                                                <h6 class="text-gold"><i class="bi bi-star me-2"></i>專屬禮遇</h6>
                                                 <ul class="mb-0 small">
                                                     <li>15個菁英夜數積分</li>
                                                     <li>7%萬豪會員房價折扣</li>
@@ -783,7 +515,7 @@
                                         
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-star me-2"></i>會員禮遇</h6>
+                                                <h6 class="text-gold"><i class="bi bi-star me-2"></i>專屬禮遇</h6>
                                                 <ul class="mb-0 small">
                                                     <li>AmEx Offer商家折扣</li>
                                                     <li>推薦朋友每成功得20k積分</li>
@@ -1070,12 +802,7 @@
                                             <div class="text-center">
                                                 <div class="text-gold fw-bold mb-1">開卡禮</div>
                                                 <div class="text-white small">
-                                                    前3個月消費 <span class="text-gold fw-bold">$4,000</span> 獲得
-                                                </div>
-                                                <div class="mt-1">
-                                                    <span class="text-gold fw-bold fs-4">5晚</span> 
-                                                    <span class="text-white">免費住宿券</span><br>
-                                                    <small class="text-light">(up to 85k Marriott點數)</small>
+                                                    無開卡禮
                                                 </div>
                                             </div>
                                         </div>
@@ -1120,7 +847,7 @@
                                     <div class="row g-3 text-start">
                                         <div class="col-12">
                                             <div class="p-3 rounded" style="background: rgba(255,255,255,0.1);">
-                                                <h6 class="text-gold"><i class="bi bi-gem me-2"></i>萬豪酒店權益</h6>
+                                                <h6 class="text-gold"><i class="bi bi-gem me-2"></i>酒店權益</h6>
                                                 <ul class="mb-0 small">
                                                     <li>萬豪酒店：6X Marriott點數</li>
                                                     <li>自動萬豪金卡菁英會籍</li>
@@ -1181,7 +908,7 @@
                     <div class="timeline-date">
                         <span class="date">19</span>
                         <span class="month">APR</span>
-                        <span class="year">2024</span>
+                        <span class="year">2025</span>
                     </div>
                     <div class="timeline-content">
                         <div class="event-gallery">
@@ -1247,7 +974,7 @@
                     <div class="timeline-date">
                         <span class="date">23</span>
                         <span class="month">MAR</span>
-                        <span class="year">2024</span>
+                        <span class="year">2025</span>
                     </div>
                     <div class="timeline-content">
                         <div class="event-gallery">
@@ -1313,7 +1040,7 @@
                     <div class="timeline-date">
                         <span class="date">15</span>
                         <span class="month">MAR</span>
-                        <span class="year">2024</span>
+                        <span class="year">2025</span>
                     </div>
                     <div class="timeline-content">
                         <div class="event-gallery">
@@ -1463,7 +1190,7 @@
                         </div>
                                 </div>
                                 <div class="col-md-3 text-center">
-                                    <a href="#consultation" class="btn btn-gold btn-lg mt-3 w-100 p-3" style="font-size: 1.2rem;color: white;">立即諮詢</a>
+                                    <a href="https://line.me/ti/p/@927ukytp" class="btn btn-gold btn-lg mt-3 w-100 p-3" target="_blank" style="font-size: 1.2rem;color: white;">立即諮詢</a>
                                 </div>
                             </div>
                         </div>
@@ -1609,49 +1336,68 @@
             <h2 class="text-center mb-5" data-aos="fade-up">
                 <span class="text-gold">聯絡</span>我們
             </h2>
-            <div class="row g-4">
-                <div class="col-md-6" data-aos="fade-right">
-                    <div class="contact-card p-4">
-                        <h4 class="mb-4 text-gold">直接聯繫方式</h4>
-                        <div class="mb-4">
-                            <p class="d-flex align-items-center mb-3">
-                                <i class="bi bi-line me-3 text-gold"></i>
-                                @927ukytp
-                            </p>
-                        </div>
+            
+            <!-- LINE 聯絡按鈕 -->
+            <div class="row justify-content-center mb-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-md-6 text-center">
+                    <div class="line-contact-section p-4 rounded" style="background: rgba(255,255,255,0.1); border: 2px solid var(--gold-color);">
+                        <h4 class="text-gold mb-3">
+                            <i class="bi bi-line me-2"></i>
+                            LINE 快速聯絡
+                        </h4>
+                        <p class="text-light mb-4">立即透過 LINE 與我們聯繫，獲得即時專業諮詢服務</p>
+                        <a href="https://line.me/ti/p/@927ukytp" 
+                           target="_blank" 
+                           class="btn btn-gold btn-lg px-5 py-3 d-inline-flex align-items-center" 
+                           style="background: var(--gold-color); border-color: var(--gold-color); color: var(--primary-color); box-shadow: 0 4px 15px rgba(197, 165, 114, 0.3); font-size: 1.1rem;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2">
+                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.628-.629.628M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" fill="currentColor"/>
+                            </svg>
+                            加入 LINE 好友
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-6" data-aos="fade-left">
-                    <div class="contact-card p-4">
-                        <h4 class="mb-4 text-gold">預約諮詢</h4>
-                        <form class="contact-form">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="姓名" required>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10" data-aos="fade-up">
+                    <div class="contact-card p-5">
+                        <!-- 聯絡方式 -->
+                    
+                        
+                        <!-- 預約諮詢表單 -->
+                        <div>
+                            <h4 class="mb-4 text-gold text-center">預約諮詢</h4>
+                            <form class="contact-form">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="姓名" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="tel" class="form-control" placeholder="電話" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="email" class="form-control" placeholder="電子郵件" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-select" required>
+                                            <option value="">選擇預約時段</option>
+                                            <option>上午 (09:00-12:00)</option>
+                                            <option>下午 (14:00-17:00)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea class="form-control" rows="4" placeholder="諮詢內容或想了解的信用卡類型" required></textarea>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-outline-light hover-gold px-5 py-3" style="min-width: 200px;">
+                                            <i class="bi bi-send me-2"></i>
+                                            送出預約
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="tel" class="form-control" placeholder="電話" required>
-                                </div>
-                                <div class="col-12">
-                                    <input type="email" class="form-control" placeholder="電子郵件" required>
-                                </div>
-                                <div class="col-12">
-                                    <select class="form-select" required>
-                                        <option value="">選擇預約時段</option>
-                                        <option>上午 (09:00-12:00)</option>
-                                        <option>下午 (14:00-17:00)</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="form-control" rows="3" placeholder="諮詢內容" required></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-outline-light w-100 hover-gold">
-                                        送出預約
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

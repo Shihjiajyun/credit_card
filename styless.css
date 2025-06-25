@@ -1178,3 +1178,267 @@ html, body {
     }
 }
 
+  /* 防止水平滾動 */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* 手機版導覽列優化 */
+@media (max-width: 991.98px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    .navbar-brand img {
+        height: 35px !important;
+    }
+    
+    .navbar-toggler {
+        border: 1px solid var(--gold-color);
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(197, 165, 114, 0.25);
+    }
+    
+    .navbar-collapse {
+        margin-top: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 1rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        background: rgba(197, 165, 114, 0.1);
+        color: var(--gold-color) !important;
+    }
+}
+
+/* 手機版容器滿版寬度 */
+@media (max-width: 991.98px) {
+    .container {
+        max-width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* 特殊區域保持適當內距 */
+    .hero-section .container,
+    .contact-section .container,
+    .footer-section .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
+
+/* 手機版卡片置中優化 */
+@media (max-width: 767.98px) {
+    .flip-card {
+        height: 500px;
+        margin-bottom: 2rem;
+    }
+    
+    .card-header h5 {
+        font-size: 1rem;
+    }
+    
+    .flip-card-back {
+        padding: 15px;
+    }
+    
+    .flip-card-back h4 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* 確保卡片在手機版置中 */
+    .row.g-4.justify-content-center > [class*="col-"] {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .row.g-4.justify-content-center > [class*="col-"] .flip-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+/* 手機版服務卡片 */
+@media (max-width: 767.98px) {
+    .service-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .premium-service-card .row {
+        text-align: center;
+    }
+    
+    .premium-service-card .col-md-3,
+    .premium-service-card .col-md-6,
+    .premium-service-card .col-md-3 {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* 手機版時間軸優化 */
+@media (max-width: 767.98px) {
+    .timeline-item {
+        margin-bottom: 3rem;
+    }
+    
+    .timeline-date {
+        position: relative;
+        float: none;
+        width: auto;
+        margin: 0 0 1rem 0;
+        text-align: center;
+    }
+    
+    .timeline-content {
+        margin-left: 0;
+        padding-left: 0;
+    }
+    
+    .event-gallery .swiper {
+        height: 250px;
+    }
+}
+
+.service-step:hover {
+    border-color: var(--gold-color) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.about-content-left {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-content-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.03"/><circle cx="20" cy="80" r="0.5" fill="white" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+}
+
+@media (max-width: 991.98px) {
+    .about-content-left, .about-content-right {
+        min-height: 400px;
+    }
+}
+
+/* 翻卡效果樣式 */
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    height: 600px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.flip-card-front {
+    background: linear-gradient(135deg, #1a365d, #2c5282);
+    color: white;
+}
+
+.flip-card-back {
+    background: linear-gradient(135deg, #1a365d, #2c5282);
+    color: white;
+    transform: rotateY(180deg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flip-card-front .card {
+    background: transparent !important;
+    border: none !important;
+}
+
+.flip-card-front .card-header {
+    background: rgba(255, 215, 0, 0.2) !important;
+    border-bottom: 2px solid var(--gold-color);
+}
+
+.flip-hint {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    z-index: 10;
+}
+
+.flip-toggle-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.flip-toggle-btn:hover {
+    background: var(--gold-color);
+    border-color: var(--gold-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 隱藏卡片背面的所有圖標 */
+.flip-card-back h6 i {
+    display: none;
+}
+
+/* 隱藏提示文字的圖標 */
+.flip-hint i {
+    display: none;
+}
+
+
